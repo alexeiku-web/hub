@@ -3,7 +3,8 @@
 Alexei's personal dashboard, served by GitHub Pages from the default branch root. He tells Claude an update in conversation; Claude edits `data.json` and pushes.
 
 ## Rules
-- The repo and site are PUBLIC. Never put colleague or family names, work details, money or health items in `data.json` or anywhere else in the repo. Give those to him as a paste block for the app's "Paste an update from Claude" box: `{"todos":[{"cat":"General","text":"..."}],"checklists":{"tvc":["..."]},"lists":[{"list":"books","title":"...","by":"..."}]}`.
+- The repo and site are PUBLIC, and Alexei has accepted that (Nov 16 2026): his to-dos, work checklist and project notes go in `data.json` so they update automatically. Still keep out anything that would do real harm if public: account or ID numbers, passwords, addresses, health details, and anything about other people beyond a first name in a to-do. If an item seems too sensitive, say so and offer the app's "Paste an update from Claude" box instead: `{"todos":[{"cat":"General","text":"..."}],"checklists":{"tvc":["..."]},"lists":[{"list":"books","title":"...","by":"..."}]}`.
+- Project checklists (the Vancouver Clinic card) are `todos` entries with `cat` set to `p:<project id>`, for example `p:tvc`.
 - Never change the `id` of an existing item: ticks on his phone are keyed by id. New items get new unique ids.
 - Set `updated` to today's date on every content change.
 - No due dates on cards. Order projects with `urgency` (1 is most urgent). The workout tile is always pinned first by the app.

@@ -2,133 +2,405 @@
   "updated": "2026-11-16",
   "workoutGoal": "Eight weeks toward Red Rock Canyon in February",
   "habits": [
-    {"id": "cme", "label": "Weekly CME questions, due Sunday", "days": [6, 0], "period": "week", "hideWhenDone": true},
-    {"id": "flute", "label": "Practice 30 minutes on the Native American flute", "days": [1, 3, 5], "period": "day"}
+    {
+      "id": "cme",
+      "label": "Weekly CME questions, due Sunday",
+      "days": [
+        6,
+        0
+      ],
+      "period": "week",
+      "hideWhenDone": true
+    },
+    {
+      "id": "flute",
+      "label": "Practice 30 minutes on the Native American flute",
+      "days": [
+        1,
+        3,
+        5
+      ],
+      "period": "day"
+    }
   ],
   "projects": [
     {
-      "id": "cider", "name": "Cider making", "urgency": 1,
+      "id": "cider",
+      "name": "Cider making",
+      "urgency": 1,
       "status": "The 16-gallon batch is finished and its seal is open, so racking it into the corny kegs comes first. Three 7-gallon fermenters of fresh juice were pitched on Nov 15.",
       "next": [
-        {"id": "cider-n1", "text": "Buy food-grade tubing at the brew shop"},
-        {"id": "cider-n2", "text": "Clean the corny kegs with PBW, rinse, and replace all the O-rings"},
-        {"id": "cider-n3", "text": "Sanitize the kegs with Star San"},
-        {"id": "cider-n4", "text": "Rack the 16-gallon batch straight into the kegs"},
-        {"id": "cider-n5", "text": "Purge the headspace with CO2 and pressurize the kegs for long-term aging"},
-        {"id": "cider-n6", "text": "Add yeast nutrient to the three 7-gallon fermenters as soon as fermentation starts"},
-        {"id": "cider-n7", "text": "Add the second nutrient dose about a third of the way through fermentation"}
+        {
+          "id": "cider-n1",
+          "text": "Buy food-grade tubing at the brew shop"
+        },
+        {
+          "id": "cider-n2",
+          "text": "Clean the corny kegs with PBW, rinse, and replace all the O-rings"
+        },
+        {
+          "id": "cider-n3",
+          "text": "Sanitize the kegs with Star San"
+        },
+        {
+          "id": "cider-n4",
+          "text": "Rack the 16-gallon batch straight into the kegs"
+        },
+        {
+          "id": "cider-n5",
+          "text": "Purge the headspace with CO2 and pressurize the kegs for long-term aging"
+        },
+        {
+          "id": "cider-n6",
+          "text": "Add yeast nutrient to the three 7-gallon fermenters as soon as fermentation starts"
+        },
+        {
+          "id": "cider-n7",
+          "text": "Add the second nutrient dose about a third of the way through fermentation"
+        }
       ],
       "think": [
-        {"by": "me", "text": "This yeast tends to throw sulfur at certain temperatures and when nitrogen is short, which is why the nutrient timing matters."},
-        {"by": "claude", "text": "The open batch is taking on oxygen. If the tubing run slips, a blanket of CO2 from your tank over the surface buys some time."},
-        {"by": "claude", "text": "16 gallons fills three 5-gallon kegs with about a gallon left over. Have a fourth keg or a smaller vessel ready."},
-        {"by": "claude", "text": "A third of the way through is a third of the sugar gone. If the new juice started near 14 Brix like the last batch, that is around 1.038 on the hydrometer."},
-        {"by": "claude", "text": "A rotten-egg smell early on is the cue to add nutrient and hold the temperature steady. It is easier to prevent than to remove."}
+        {
+          "by": "me",
+          "text": "This yeast tends to throw sulfur at certain temperatures and when nitrogen is short, which is why the nutrient timing matters."
+        },
+        {
+          "by": "claude",
+          "text": "The open batch is taking on oxygen. If the tubing run slips, a blanket of CO2 from your tank over the surface buys some time."
+        },
+        {
+          "by": "claude",
+          "text": "16 gallons fills three 5-gallon kegs with about a gallon left over. Have a fourth keg or a smaller vessel ready."
+        },
+        {
+          "by": "claude",
+          "text": "A third of the way through is a third of the sugar gone. If the new juice started near 14 Brix like the last batch, that is around 1.038 on the hydrometer."
+        },
+        {
+          "by": "claude",
+          "text": "A rotten-egg smell early on is the cue to add nutrient and hold the temperature steady. It is easier to prevent than to remove."
+        }
       ],
       "refs": [
-        {"title": "Racking into kegs, in order", "body": [
-          "Release any pressure, then take each keg apart: lid, posts and dip tubes.",
-          "Soak or scrub everything in hot PBW, then rinse until the water runs clear.",
-          "Fit new O-rings on the lid, posts and dip tubes, and reassemble.",
-          "Add Star San, seal, shake to coat every surface, then push it out through the liquid post with CO2. The keg is left sanitized and full of gas.",
-          "Run sanitizer through the full length of the new tubing.",
-          "Fill each keg with the tube resting on the bottom to limit splashing. Leave the sediment behind.",
-          "Seal, pressurize, and pull the relief valve 3 or 4 times to purge the headspace. Spray the lid and posts with sanitizer and watch for bubbles.",
-          "Clean the 16-gallon fermenter the same day, before the yeast cake dries on."
-        ]},
-        {"title": "Nutrient plan for the 7-gallon fermenters", "body": [
-          "Dose 1: as soon as you see active fermentation (bubbling airlock or foam).",
-          "Dose 2: about a third of the way through, judged by gravity readings.",
-          "Use the dose on the nutrient package for 7 gallons, split across the two additions.",
-          "Keep the fermenters somewhere cool and steady. A steady temperature matters more than a perfect one."
-        ]},
-        {"title": "Cider Run Sheet (your Claude page)", "url": "https://claude.ai/artifact/WoRgSv2EXZ23W5bTdMsSqS"},
-        {"title": "Cleaning and sanitizing corny kegs (your Claude doc)", "url": "https://claude.ai/artifact/FZ9m55m72xJw2FWKqWjhMq"}
+        {
+          "title": "Racking into kegs, in order",
+          "body": [
+            "Release any pressure, then take each keg apart: lid, posts and dip tubes.",
+            "Soak or scrub everything in hot PBW, then rinse until the water runs clear.",
+            "Fit new O-rings on the lid, posts and dip tubes, and reassemble.",
+            "Add Star San, seal, shake to coat every surface, then push it out through the liquid post with CO2. The keg is left sanitized and full of gas.",
+            "Run sanitizer through the full length of the new tubing.",
+            "Fill each keg with the tube resting on the bottom to limit splashing. Leave the sediment behind.",
+            "Seal, pressurize, and pull the relief valve 3 or 4 times to purge the headspace. Spray the lid and posts with sanitizer and watch for bubbles.",
+            "Clean the 16-gallon fermenter the same day, before the yeast cake dries on."
+          ]
+        },
+        {
+          "title": "Nutrient plan for the 7-gallon fermenters",
+          "body": [
+            "Dose 1: as soon as you see active fermentation (bubbling airlock or foam).",
+            "Dose 2: about a third of the way through, judged by gravity readings.",
+            "Use the dose on the nutrient package for 7 gallons, split across the two additions.",
+            "Keep the fermenters somewhere cool and steady. A steady temperature matters more than a perfect one."
+          ]
+        },
+        {
+          "title": "Cider Run Sheet (your Claude page)",
+          "url": "https://claude.ai/artifact/WoRgSv2EXZ23W5bTdMsSqS"
+        },
+        {
+          "title": "Cleaning and sanitizing corny kegs (your Claude doc)",
+          "url": "https://claude.ai/artifact/FZ9m55m72xJw2FWKqWjhMq"
+        }
       ]
     },
     {
-      "id": "grandmothers", "name": "Nine Hundred Grandmothers script", "urgency": 2,
+      "id": "grandmothers",
+      "name": "Nine Hundred Grandmothers script",
+      "urgency": 2,
       "status": "Draft one is finished. Collecting edits from your older brother and other editors before it goes to the producer, and working out how to cut it down. Waiting on your older brother's notes.",
       "next": [
-        {"id": "gm-n1", "text": "Get your older brother's edits"},
-        {"id": "gm-n2", "text": "Collect the other editors' notes"},
-        {"id": "gm-n3", "text": "Decide the cuts and revise"},
-        {"id": "gm-n4", "text": "Send the script to the producer"},
-        {"id": "gm-n5", "text": "Final script around the new year, then move on to the animated film"}
+        {
+          "id": "gm-n1",
+          "text": "Get your older brother's edits"
+        },
+        {
+          "id": "gm-n2",
+          "text": "Collect the other editors' notes"
+        },
+        {
+          "id": "gm-n3",
+          "text": "Decide the cuts and revise"
+        },
+        {
+          "id": "gm-n4",
+          "text": "Send the script to the producer"
+        },
+        {
+          "id": "gm-n5",
+          "text": "Final script around the new year, then move on to the animated film"
+        }
       ],
       "think": [
-        {"by": "me", "text": "The script needs to come down in length."},
-        {"by": "claude", "text": "While you wait, mark every scene that repeats a beat already landed. Those are the cheapest cuts."},
-        {"by": "claude", "text": "Ask each editor for their three biggest cuts as well as line notes, so the length problem gets answered directly."}
+        {
+          "by": "me",
+          "text": "The script needs to come down in length."
+        },
+        {
+          "by": "claude",
+          "text": "While you wait, mark every scene that repeats a beat already landed. Those are the cheapest cuts."
+        },
+        {
+          "by": "claude",
+          "text": "Ask each editor for their three biggest cuts as well as line notes, so the length problem gets answered directly."
+        }
       ],
       "refs": []
     },
     {
-      "id": "crickets", "name": "Cricket breeding", "urgency": 3,
+      "id": "crickets",
+      "name": "Cricket breeding",
+      "urgency": 3,
       "status": "Breeding is under way with your son. A few males died off and some crickets were lost to low humidity. The aim for now is simply to see whether you can breed them.",
       "next": [
-        {"id": "cr-n1", "text": "Buy more adult males"},
-        {"id": "cr-n2", "text": "Raise the humidity in the containers"},
-        {"id": "cr-n3", "text": "Build a clear plexiglass or plastic fighting ring with a central divider"},
-        {"id": "cr-n4", "text": "Keep the males apart for 3 to 4 days, then see whether they will fight"},
-        {"id": "cr-n5", "text": "Later: mount a top-down camera and use computer vision as an unbiased judge"}
+        {
+          "id": "cr-n1",
+          "text": "Buy more adult males"
+        },
+        {
+          "id": "cr-n2",
+          "text": "Raise the humidity in the containers"
+        },
+        {
+          "id": "cr-n3",
+          "text": "Build a clear plexiglass or plastic fighting ring with a central divider"
+        },
+        {
+          "id": "cr-n4",
+          "text": "Keep the males apart for 3 to 4 days, then see whether they will fight"
+        },
+        {
+          "id": "cr-n5",
+          "text": "Later: mount a top-down camera and use computer vision as an unbiased judge"
+        }
       ],
       "think": [
-        {"by": "claude", "text": "For humidity, a damp (not wet) laying dish and fresh vegetable slices add moisture without open water. Keep the air holes, since still, wet air grows mold."},
-        {"by": "claude", "text": "A small hygrometer in one tub would tell you whether a change is working."},
-        {"by": "claude", "text": "Keep new store-bought males apart for about a week before mixing them in, in case the batch is sick."}
+        {
+          "by": "claude",
+          "text": "For humidity, a damp (not wet) laying dish and fresh vegetable slices add moisture without open water. Keep the air holes, since still, wet air grows mold."
+        },
+        {
+          "by": "claude",
+          "text": "A small hygrometer in one tub would tell you whether a change is working."
+        },
+        {
+          "by": "claude",
+          "text": "Keep new store-bought males apart for about a week before mixing them in, in case the batch is sick."
+        }
       ],
       "refs": [
-        {"title": "Fight trials, from your breeding guide", "body": [
-          "Give each male at least 3 days alone first. Crickets kept in a crowd act like losers; time alone brings their aggression back.",
-          "Pair males that are close in weight. Let both settle with the divider in, then lift it.",
-          "If they ignore each other, tickle their antennae with a soft brush or grass stem.",
-          "Score each fight 0 to 4: 0 ignored each other, 1 antenna fencing, 2 jaws spread, 3 jaws locked, 4 wrestling.",
-          "The loser is the one that first avoids contact, runs, or stops chirping. Stop the fight the moment one backs off.",
-          "At most one fight per male per day."
-        ]},
-        {"title": "Key numbers", "body": [
-          "Hold the tubs at 82 to 88°F. Past 95°F is dangerous.",
-          "Eggs hatch in about 13 days at 86°F.",
-          "Females lay from about 8 to 10 days old as adults.",
-          "About 12 weeks per generation."
-        ]},
-        {"title": "Cricket Champion Picker (your Claude page)", "url": "https://claude.ai/artifact/Y5xCNZB6TuS6mELX7dPCDo"},
-        {"title": "Illustrated start-up guide (in the earlier chat)", "url": "https://claude.ai/chat/b5c6579c-399a-4f2b-a789-432081b92f19"}
+        {
+          "title": "Fight trials, from your breeding guide",
+          "body": [
+            "Give each male at least 3 days alone first. Crickets kept in a crowd act like losers; time alone brings their aggression back.",
+            "Pair males that are close in weight. Let both settle with the divider in, then lift it.",
+            "If they ignore each other, tickle their antennae with a soft brush or grass stem.",
+            "Score each fight 0 to 4: 0 ignored each other, 1 antenna fencing, 2 jaws spread, 3 jaws locked, 4 wrestling.",
+            "The loser is the one that first avoids contact, runs, or stops chirping. Stop the fight the moment one backs off.",
+            "At most one fight per male per day."
+          ]
+        },
+        {
+          "title": "Key numbers",
+          "body": [
+            "Hold the tubs at 82 to 88°F. Past 95°F is dangerous.",
+            "Eggs hatch in about 13 days at 86°F.",
+            "Females lay from about 8 to 10 days old as adults.",
+            "About 12 weeks per generation."
+          ]
+        },
+        {
+          "title": "Cricket Champion Picker (your Claude page)",
+          "url": "https://claude.ai/artifact/Y5xCNZB6TuS6mELX7dPCDo"
+        },
+        {
+          "title": "Illustrated start-up guide (in the earlier chat)",
+          "url": "https://claude.ai/chat/b5c6579c-399a-4f2b-a789-432081b92f19"
+        }
       ]
     },
     {
-      "id": "tvc", "name": "Vancouver Clinic", "urgency": 4,
-      "status": "Stack day rotation redesign: working out the logistics.",
+      "id": "tvc",
+      "name": "Vancouver Clinic",
+      "urgency": 4,
+      "status": "Setting up stack day rotations: moving from reading in real time to giving each radiologist a pre-set batch of studies scanned one to three days earlier. Working out the logistics.",
       "next": [],
       "think": [],
       "refs": [],
       "checklist": true
     }
   ],
-  "todoCats": ["Trip planning", "Home and car", "Family and personal", "General"],
-  "todos": [],
+  "todoCats": [
+    "Trip planning",
+    "Home and car",
+    "Family and personal",
+    "General"
+  ],
+  "todos": [
+    {
+      "id": "td-01",
+      "cat": "Trip planning",
+      "text": "Book Leavenworth"
+    },
+    {
+      "id": "td-02",
+      "cat": "Trip planning",
+      "text": "Book Maui tickets"
+    },
+    {
+      "id": "td-03",
+      "cat": "Trip planning",
+      "text": "Request time off for Basque Country"
+    },
+    {
+      "id": "td-04",
+      "cat": "Home and car",
+      "text": "Replace jacuzzi motor"
+    },
+    {
+      "id": "td-05",
+      "cat": "Home and car",
+      "text": "Get oil changed, check up on car"
+    },
+    {
+      "id": "td-06",
+      "cat": "Home and car",
+      "text": "Take Subaru in for oil change and headlights; find a reliable Subaru mechanic"
+    },
+    {
+      "id": "td-07",
+      "cat": "Family and personal",
+      "text": "Get days off for Eliot's birthday?"
+    },
+    {
+      "id": "td-08",
+      "cat": "Family and personal",
+      "text": "Register for CYO, concussion training"
+    },
+    {
+      "id": "td-09",
+      "cat": "Family and personal",
+      "text": "Give ASA address (sailing)"
+    },
+    {
+      "id": "td-10",
+      "cat": "Family and personal",
+      "text": "Look into backdoor Roth"
+    },
+    {
+      "id": "td-11",
+      "cat": "General",
+      "text": "Email Annie with the printing press details"
+    },
+    {
+      "id": "tvc-01",
+      "cat": "p:tvc",
+      "text": "Figure out vacation / stack rotations and send proposal to Jonah"
+    },
+    {
+      "id": "tvc-02",
+      "cat": "p:tvc",
+      "text": "Deal with MRI QC issue with Jonah"
+    },
+    {
+      "id": "tvc-03",
+      "cat": "p:tvc",
+      "text": "Call ABR about meeting CME requirements"
+    },
+    {
+      "id": "tvc-04",
+      "cat": "p:tvc",
+      "text": "Update DEA and other licenses by December"
+    }
+  ],
   "other": [
-    {"name": "Arcade of the future", "note": "Hybrid arcade and STEM learning center with player-moddable games."},
-    {"name": "Historical Zelda-style game", "note": "Open-world game set in real history; HTML versus Unreal still open."},
-    {"name": "Short documentary", "note": "Producing with a friend who is a commercial DP; learning the producer role first."},
-    {"name": "Plato shadow platformer", "note": "Projector and webcam game where real shadows become the level."},
-    {"name": "Father-son animated film", "note": "Unreal Engine film with motion-captured characters."},
-    {"name": "3D character modeling", "note": "Puma boy warrior and sifaka characters."},
-    {"name": "Winter Light Festival piece", "note": "Build and submit a piece for the year after this one."},
-    {"name": "Radiology differential tool", "note": "Findings in, differential and follow-up out."},
-    {"name": "Bengal kitten search", "note": "Breeders in Oregon and Washington."},
-    {"name": "Basketball sim games", "note": "Franchise and arcade simulators."},
-    {"name": "Vörul worldbuilding", "note": "Conlang and species behind the Grandmothers world."},
-    {"name": "Minimalism Health", "note": "Substack concept for evidence-based health writing."},
-    {"name": "Manga and comic panels", "note": "Original panel art."}
+    {
+      "name": "Arcade of the future",
+      "note": "Hybrid arcade and STEM learning center with player-moddable games."
+    },
+    {
+      "name": "Historical Zelda-style game",
+      "note": "Open-world game set in real history; HTML versus Unreal still open."
+    },
+    {
+      "name": "Short documentary",
+      "note": "Producing with a friend who is a commercial DP; learning the producer role first."
+    },
+    {
+      "name": "Plato shadow platformer",
+      "note": "Projector and webcam game where real shadows become the level."
+    },
+    {
+      "name": "Father-son animated film",
+      "note": "Unreal Engine film with motion-captured characters."
+    },
+    {
+      "name": "3D character modeling",
+      "note": "Puma boy warrior and sifaka characters."
+    },
+    {
+      "name": "Winter Light Festival piece",
+      "note": "Build and submit a piece for the year after this one."
+    },
+    {
+      "name": "Radiology differential tool",
+      "note": "Findings in, differential and follow-up out."
+    },
+    {
+      "name": "Bengal kitten search",
+      "note": "Breeders in Oregon and Washington."
+    },
+    {
+      "name": "Basketball sim games",
+      "note": "Franchise and arcade simulators."
+    },
+    {
+      "name": "Vörul worldbuilding",
+      "note": "Conlang and species behind the Grandmothers world."
+    },
+    {
+      "name": "Minimalism Health",
+      "note": "Substack concept for evidence-based health writing."
+    },
+    {
+      "name": "Manga and comic panels",
+      "note": "Original panel art."
+    }
   ],
   "lists": [
-    {"id": "books", "name": "Books to read", "items": []},
-    {"id": "films", "name": "Films to watch", "items": []},
-    {"id": "kidfilms", "name": "Films to watch with the kids", "items": [
-      {"id": "kf-thx", "title": "THX 1138"},
-      {"id": "kf-sa2", "title": "Sister Act 2"}
-    ]}
+    {
+      "id": "books",
+      "name": "Books to read",
+      "items": []
+    },
+    {
+      "id": "films",
+      "name": "Films to watch",
+      "items": []
+    },
+    {
+      "id": "kidfilms",
+      "name": "Films to watch with the kids",
+      "items": [
+        {
+          "id": "kf-thx",
+          "title": "THX 1138"
+        },
+        {
+          "id": "kf-sa2",
+          "title": "Sister Act 2"
+        }
+      ]
+    }
   ]
 }
