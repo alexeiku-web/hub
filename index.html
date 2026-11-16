@@ -170,9 +170,10 @@ var today = testDate ? parseIso(testDate) : new Date();
 var todayKey = iso(today), todayIdx = (today.getDay()+6)%7, thisMonday = mondayOf(today);
 var D = null;                       // data.json
 var LS = "hub-v1";
-var S = { start:null, ticks:{}, my:[], myList:[], gone:{} };
+var S = { start:null, ticks:{}, my:[], myList:[], gone:{}, daily:[] };
 var UI = { msg:"", form:null, confirmDel:null, openNote:{}, cmeUndo:false, dataErr:false };
 (function(){ try{ var s = JSON.parse(localStorage.getItem(LS)||"null"); if(s){ for(var k in S){ if(s[k]!=null){ S[k]=s[k]; } } } }catch(e){} })();
+S.daily = (S.daily||[]).filter(function(d){ return d.date>=todayKey || !S.ticks["t:"+d.id]; });
 function save(){ try{ localStorage.setItem(LS, JSON.stringify(S)); UI.saveErr=false; }catch(e){ UI.saveErr=true; } }
 function ticked(k){ return !!S.ticks[k]; }
 function setTick(k,on){ if(on){ S.ticks[k]=Date.now(); } else { delete S.ticks[k]; } save(); }
@@ -252,7 +253,19 @@ function habits(){
     }
     out.push(check(k, h.label, {after:function(v){ UI.cmeUndo = (v && h.hideWhenDone) ? h.id : false; }}));
   });
-  return out.length ? el("section",{class:"card","aria-label":"Today"},[ el("h3",{text:"Today"}), el("div",{class:"checks"}, out) ]) : null;
+  // One-day tasks, kept on this device. Unfinished ones carry over to the next day.
+  S.daily.filter(function(d){ return d.date===todayKey || (d.date<todayKey && !ticked("t:"+d.id)); }).forEach(function(d){
+    var node = [d.text];
+    if(d.date<todayKey){ node.push(el("span",{class:"by",text:"carried over"})); }
+    if(ticked("t:"+d.id)){ node.push(" "); node.push(el("button",{type:"button",class:"link",text:"clear",onclick:function(e){ e.preventDefault(); S.daily = S.daily.filter(function(x){ return x.id!==d.id; }); delete S.ticks["t:"+d.id]; save(); render(); }})); }
+    out.push(check("t:"+d.id, node));
+  });
+  var form = el("form",{class:"inline",onsubmit:function(e){
+      e.preventDefault(); var v = document.getElementById("day-text").value.trim(); if(!v){ return; }
+      S.daily.push({id:newId("d"), text:v, date:todayKey}); save(); render();
+      var again = document.getElementById("day-text"); if(again){ again.focus(); }
+    }},[ el("input",{type:"text",id:"day-text",maxlength:"200",placeholder:"Add a task for today","aria-label":"New task for today"}), el("button",{class:"btn",type:"submit",text:"Add"}) ]);
+  return el("section",{class:"card","aria-label":"Today"},[ el("h3",{text:"Today"}), out.length ? el("div",{class:"checks"}, out) : null, form ]);
 }
 function projectsSorted(){ return (D.projects||[]).slice().sort(function(a,b){ return (a.urgency||99)-(b.urgency||99); }); }
 function firstOpenNext(p){ var n = (p.next||[]).filter(function(x){ return !ticked("t:"+x.id); })[0]; return n ? n.text : null; }
