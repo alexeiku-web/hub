@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0f6e7a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Hub">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<title>Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: one phone-width column. Home is a scan list: today's workout, habit lines, projects by urgency, to-dos. Every row opens a detail page. */
+:root{
+  --bg:#eef1f3; --surface:#ffffff; --ink:#18222b; --muted:#5b6975; --line:#d5dce2;
+  --accent:#0f6e7a; --accent-ink:#ffffff; --mark:#b97f00; --good:#2a8048; --bad:#b3372f;
+  --wood:#e9dcc3; --wood-line:#b8a47c; --hold:#fbf6ea;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Barlow",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#10171c; --surface:#19232a; --ink:#e6edf1; --muted:#93a3af; --line:#2b3943;
+    --accent:#4fc3cf; --accent-ink:#06262b; --mark:#f2bd3a; --good:#5fc480; --bad:#f08a80;
+    --wood:#3a3226; --wood-line:#6b5c40; --hold:#2a251c;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#10171c; --surface:#19232a; --ink:#e6edf1; --muted:#93a3af; --line:#2b3943;
+  --accent:#4fc3cf; --accent-ink:#06262b; --mark:#f2bd3a; --good:#5fc480; --bad:#f08a80;
+  --wood:#3a3226; --wood-line:#6b5c40; --hold:#2a251c;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45;-webkit-text-size-adjust:100%}
+.wrap{max-width:640px;margin:0 auto;padding:calc(14px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) calc(56px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left))}
+#view{display:flex;flex-direction:column;gap:14px}
+h1{font-family:var(--display);font-weight:700;font-size:30px;line-height:1.05;margin:0;text-wrap:balance}
+h2{font-family:var(--display);font-weight:700;font-size:22px;line-height:1.1;margin:0;text-wrap:balance}
+h3{font-family:var(--display);font-weight:600;font-size:16px;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);margin:0}
+p{margin:0}
+.sub{color:var(--muted);font-size:14px}
+.small{font-size:13px;color:var(--muted)}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.card.pin{border-left:5px solid var(--accent)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.spread{justify-content:space-between}
+.tag{font-size:12px;font-weight:600;letter-spacing:.3px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.tag.hot{border-color:var(--mark);color:var(--mark)}
+.back{font-weight:600;text-decoration:none;font-size:15px}
+ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px}
+ul.plain li::marker{color:var(--accent)}
+.checks{display:flex;flex-direction:column}
+label.ck{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.checks label.ck:last-child{border-bottom:0}
+label.ck input{width:22px;height:22px;margin:1px 0 0;flex:none;accent-color:var(--accent)}
+label.ck.on span.t{color:var(--muted);text-decoration:line-through}
+label.ck span.t{overflow-wrap:anywhere}
+.code{display:inline-block;min-width:34px;text-align:center;font-family:var(--display);font-weight:700;font-size:14px;background:var(--accent);color:var(--accent-ink);border-radius:5px;padding:0 5px;margin-right:6px;text-decoration:none}
+a.proj{display:flex;flex-direction:column;gap:4px;text-decoration:none;color:var(--ink);padding:12px 0;border-bottom:1px solid var(--line)}
+a.proj:last-child{border-bottom:0;padding-bottom:0}
+a.proj .name{font-family:var(--display);font-weight:700;font-size:20px;line-height:1.1}
+a.proj .next{font-size:14px}
+a.proj .next b{color:var(--accent);font-weight:600}
+.links{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.links a{font-family:var(--display);font-weight:600;font-size:17px;text-align:center;text-decoration:none;padding:12px 6px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+button.btn,label.btn{font-family:var(--body);font-weight:600;font-size:15px;padding:9px 14px;border-radius:9px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);cursor:pointer}
+button.btn.ghost,label.btn.ghost{background:transparent;color:var(--accent)}
+button.btn.danger{border-color:var(--bad);background:transparent;color:var(--bad)}
+button.link{background:none;border:0;padding:0;font:inherit;font-size:13px;color:var(--muted);text-decoration:underline;cursor:pointer}
+.note{font-size:14px;color:var(--muted);border-left:3px solid var(--line);padding-left:10px}
+.warn{font-size:14px;border-left:3px solid var(--mark);padding-left:10px}
+.done-banner{font-weight:600;color:var(--good)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;vertical-align:top;padding:7px 8px;border-bottom:1px solid var(--line)}
+th{font-family:var(--display);font-size:15px;color:var(--muted);font-weight:600}
+.scroll{overflow-x:auto}
+svg.board{width:100%;height:auto;display:block}
+input[type=text],input[type=url],input[type=date],textarea,select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;width:100%}
+textarea{min-height:100px;resize:vertical}
+form{display:flex;flex-direction:column;gap:8px}
+form.inline{flex-direction:row;flex-wrap:wrap;align-items:center}
+form.inline input[type=text]{flex:1 1 180px;width:auto}
+form.inline select{flex:0 1 150px;width:auto}
+label.f{font-size:13px;font-weight:600;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+details summary{cursor:pointer;font-weight:600;color:var(--accent)}
+details[open] summary{margin-bottom:8px}
+.think li.cl{color:var(--ink)}
+.by{font-size:12px;font-weight:600;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:0 6px;margin-left:6px;white-space:nowrap}
+.doc{display:flex;flex-direction:column;gap:6px;padding:10px 0;border-bottom:1px solid var(--line)}
+.doc:last-child{border-bottom:0}
+.doc pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;font-size:14px;margin:0;background:var(--bg);border-radius:8px;padding:10px}
+.doc img{max-width:100%;border-radius:8px;border:1px solid var(--line)}
+[hidden]{display:none !important}
+</style>
+</head>
+<body>
+<div class="wrap"><main id="view"><p class="sub">Loading…</p></main></div>
+<script>
+"use strict";
+/* ================= Workout plan content ================= */
+var DAYS = [
+  {k:"Mon", name:"Monday", title:"Treadmill, steady + Strength A", order:["steps","circuit"], circuit:"A",
+   base:["Treadmill: 25–30 min brisk walk or easy jog at 1–3% incline. Hold a pace where you can talk in full sentences."],
+   push:["Treadmill: 35–40 min at the same easy, talking-pace effort, 1–3% incline."]},
+  {k:"Tue", name:"Tuesday", title:"Beastmaker + FitOn stretch", order:["board","steps"], board:"first",
+   base:["FitOn stretch, 15 min: hips, hamstrings, shoulders."], push:["FitOn stretch, 15 min: hips, hamstrings, shoulders."]},
+  {k:"Wed", name:"Wednesday", title:"Treadmill, intervals", order:["steps"],
+   base:["5 min easy.","6 rounds: 1 min hard, 2 min easy. Hard means you can only get out a few words.","5 min easy."],
+   push:["5 min easy.","4 rounds: 3 min hard, 3 min easy. In weeks 7–8 make the hard part 4 min.","5 min easy."]},
+  {k:"Thu", name:"Thursday", title:"Beastmaker + Strength B", order:["board","circuit"], board:"second", circuit:"B", base:[], push:[]},
+  {k:"Fri", name:"Friday", title:"Long easy cardio + FitOn stretch", order:["steps"],
+   base:["40 min easy: incline treadmill walk, outdoor walk or hike.","FitOn stretch or yoga, 10–15 min."],
+   push:["50–60 min easy: incline treadmill walk, outdoor walk or hike.","FitOn stretch or yoga, 10–15 min."]},
+  {k:"Sat", name:"Saturday", title:"Gym climbing + FitOn stretch", order:["steps"],
+   base:["Climb 45–60 min of easy volume: lots of climbs well within your limit. Stop before you fall off tired.","FitOn stretch, 10 min: forearms, shoulders, hips."],
+   push:["Climb 60–90 min. Warm up on easy climbs, then 4–6 harder attempts with 3 min rests, then easy laps to finish.","FitOn stretch, 10 min: forearms, shoulders, hips."]},
+  {k:"Sun", name:"Sunday", title:"Rest + FitOn mobility", order:["steps"],
+   base:["FitOn yoga or full-body stretch class, 20–30 min. Nothing else."],
+   push:["FitOn yoga or full-body stretch class, 20–30 min. Keep this day easy even when you feel good."]}
+];
+var CIRCUITS = {
+  A:{name:"Strength A", items:["Dumbbell bench or floor press, 8–10","Push-ups, stop 2 short of failure","Bodyweight squats, 12–15","Dumbbell overhead press, 8–10","Plank, 30–45 s"]},
+  B:{name:"Strength B", items:["Dumbbell press (incline if you have a bench), 8–10","Reverse lunges, 8 per leg","Glute bridges, 12–15","Dead bugs, 8 per side","Prone Y-T-W raises, 6 of each"]}
+};
+var HOLD_NAMES = {J:"Jug",S35:"35° sloper",S20:"20° sloper",D4:"Deep 4-finger pocket",D3:"Deep 3-finger pocket",D2:"Deep 2-finger pocket",VD4:"Very deep 4-finger pocket",M4:"Medium 4-finger pocket",M3:"Medium 3-finger pocket",M2:"Medium 2-finger pocket",S4:"Small 4-finger pocket (10 mm)"};
+var BLOCKS = [
+  {weeks:"Weeks 1–2", name:"Fast reload", on:["J","D4","S20"],
+   both:function(w){ var a = w<=1 ? "6 × 10 s with feet on a chair" : "6 × 10 s at bodyweight"; var r=[["J",a+"."],["D4",a+"."]]; if(w>=2){ r.push(["S20","3 × 7 s."]); } r.push(["J","3 × 5 scapular pulls, then 3 × 3 pull-ups."]); return r; }},
+  {weeks:"Weeks 3–4", name:"Repeaters", on:["J","D4","S20","D3"],
+   both:function(w){ return [["D4","4 repeater sets."],["S20","3 repeater sets."],["D3","2 repeater sets, "+(w<=3?"feet assisting":"at bodyweight")+"."],["J","4 × 5 pull-ups."]]; }},
+  {weeks:"Weeks 5–6", name:"Max hangs begin", on:["M4","S35","D3","D4","S20","J"],
+   first:[["M4","5 × 10 s, 3 min rest. Choose a load you could hold for about 13 s."],["S35","3 × 10 s."],["D3","3 × 10 s."]],
+   second:[["D4","5 repeater sets."],["S20","3 repeater sets."],["D3","2 repeater sets."],["J","4 × 5 pull-ups."]]},
+  {weeks:"Weeks 7–8", name:"Add load", on:["M4","M3","S35","D4","S20","D3","J"],
+   first:[["M4","6 × 10 s. Add 5–10 lb once all six are clean."],["M3","3 × 7 s at bodyweight."],["S35","4 × 10 s."]],
+   second:[["D4","5 repeater sets."],["S20","3 repeater sets."],["D3","3 repeater sets."],["J","4 × 6–8 pull-ups, or weighted sets of 5."]]}
+];
+var BOARD_RULES = ["Open-hand or half-crimp only. Never full crimp on the board.","Shoulders engaged, elbows slightly bent. No dead sag.","End each hang with 2–3 seconds in reserve.","Sharp pain in a finger or palm: stop for the day.","Repeater set: 7 s on, 3 s off, six times. Rest 3 min between sets; 1 min between single hangs.","Warm up first: arm circles, wrist rolls, then 2–3 easy hangs on the jugs with feet on a chair."];
+var PLAN_RULES = ["Fingers come first. If a finger or palm feels sharp or tweaky, drop Thursday's board session before anything else.","Missed a day? Skip it and carry on. Don't stack two sessions to catch up.","Easy days stay easy. Monday and Friday cardio should feel almost too gentle.","FitOn: use the Stretching and Yoga categories and choose classes by length and body area.","Circuits: do the moves in order, rest 60–90 s between moves, then repeat the round. Pick a dumbbell you could press about 12 times."];
+
+/* ================= Helpers ================= */
+function el(tag, attrs, kids){
+  var n = document.createElement(tag);
+  if(attrs){ for(var k in attrs){ var v = attrs[k]; if(v===false || v==null){ continue; } if(k==="text"){ n.textContent = v; } else if(k==="class"){ n.className = v; } else if(k.indexOf("on")===0){ n.addEventListener(k.slice(2), v); } else if(k==="checked"){ n.checked = !!v; } else { n.setAttribute(k, v); } } }
+  (kids||[]).forEach(function(c){ if(c!=null){ n.appendChild(typeof c==="string" ? document.createTextNode(c) : c); } });
+  return n;
+}
+function pad(n){ return (n<10?"0":"")+n; }
+function iso(d){ return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate()); }
+function parseIso(s){ var p = String(s).split("-"); return new Date(+p[0], +p[1]-1, +p[2]); }
+function addDays(d,n){ var x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate()+n); return x; }
+function mondayOf(d){ return addDays(d, -((d.getDay()+6)%7)); }
+function fmtDate(d){ return d.toLocaleDateString(undefined,{weekday:"long",month:"short",day:"numeric"}); }
+function safeUrl(u){ try{ var x = new URL(u); return (x.protocol==="https:"||x.protocol==="http:") ? x.href : null; }catch(e){ return null; } }
+function newId(p){ return (p||"m") + Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+
+/* ================= State ================= */
+var testDate = (location.search.match(/[?&]date=(\d{4}-\d\d-\d\d)/)||[])[1];
+var today = testDate ? parseIso(testDate) : new Date();
+var todayKey = iso(today), todayIdx = (today.getDay()+6)%7, thisMonday = mondayOf(today);
+var D = null;                       // data.json
+var LS = "hub-v1";
+var S = { start:null, ticks:{}, my:[], myList:[], gone:{} };
+var UI = { msg:"", form:null, confirmDel:null, openNote:{}, cmeUndo:false, dataErr:false };
+(function(){ try{ var s = JSON.parse(localStorage.getItem(LS)||"null"); if(s){ for(var k in S){ if(s[k]!=null){ S[k]=s[k]; } } } }catch(e){} })();
+function save(){ try{ localStorage.setItem(LS, JSON.stringify(S)); UI.saveErr=false; }catch(e){ UI.saveErr=true; } }
+function ticked(k){ return !!S.ticks[k]; }
+function setTick(k,on){ if(on){ S.ticks[k]=Date.now(); } else { delete S.ticks[k]; } save(); }
+
+function weekInfo(){
+  if(!S.start){ return {n:1,set:false}; }
+  return {n: Math.round((thisMonday - mondayOf(parseIso(S.start)))/(7*864e5)) + 1, set:true};
+}
+function clampWeek(){ return Math.min(8, Math.max(1, weekInfo().n)); }
+function blockFor(w){ return BLOCKS[Math.floor((w-1)/2)]; }
+function boardRows(dayBoard, w){ var b = blockFor(w); return b.both ? b.both(w) : b[dayBoard]; }
+
+/* ================= Shared pieces ================= */
+function check(key, textNode, opts){
+  var on = ticked(key);
+  var input = el("input",{type:"checkbox",id:"ck-"+key.replace(/[^a-zA-Z0-9_-]/g,"_"),checked:on,onchange:function(e){ setTick(key, e.target.checked); if(opts && opts.after){ opts.after(e.target.checked); } render(); }});
+  return el("label",{class:"ck"+(on?" on":"")},[ input, el("span",{class:"t"}, Array.isArray(textNode)?textNode:[textNode]) ]);
+}
+var LEFT = [["J",1.5,9,10.5,14],["S35",10,18.5,10.5,14],["S20",19.5,28.5,10.5,14],["D4",1.5,9,5.75,9.25],["D2",10,14,5.75,9.25],["D3",15,20.5,5.75,9.25],["M4",1.5,9,1,4.5],["M2",10,14,1,4.5],["M3",15,20.5,1,4.5],["S4",21.5,28.5,1,4.5]];
+function boardSvg(on, labelAll){
+  var NS = "http://www.w3.org/2000/svg", svg = document.createElementNS(NS,"svg");
+  svg.setAttribute("viewBox","0 0 580 150"); svg.setAttribute("class","board"); svg.setAttribute("role","img");
+  svg.setAttribute("aria-label","Hangboard schematic. Holds to use: " + on.map(function(c){return HOLD_NAMES[c];}).join(", "));
+  function rect(x,y,w,h,r,fill,stroke){ var e = document.createElementNS(NS,"rect"); e.setAttribute("x",x); e.setAttribute("y",y); e.setAttribute("width",w); e.setAttribute("height",h); e.setAttribute("rx",r); e.setAttribute("fill",fill); e.setAttribute("stroke",stroke); svg.appendChild(e); }
+  rect(1,1,578,148,18,"var(--wood)","var(--wood-line)");
+  var all = []; LEFT.forEach(function(h){ all.push(h); all.push([h[0],58-h[2],58-h[1],h[3],h[4]]); }); all.push(["VD4",22,36,5.75,9.25]);
+  all.forEach(function(h){
+    var active = on.indexOf(h[0])>=0, x=h[1]*10, w=(h[2]-h[1])*10, y=(15-h[4])*10, ht=(h[4]-h[3])*10;
+    rect(x,y,w,ht,6, active?"var(--accent)":"var(--hold)", active?"var(--accent)":"var(--wood-line)");
+    if(active || labelAll){ var t = document.createElementNS(NS,"text"); t.setAttribute("x",x+w/2); t.setAttribute("y",y+ht/2+6); t.setAttribute("text-anchor","middle"); t.setAttribute("font-family","Barlow Condensed, Arial Narrow, Arial, sans-serif"); t.setAttribute("font-weight","700"); t.setAttribute("font-size","17"); t.setAttribute("fill", active?"var(--accent-ink)":"var(--muted)"); t.textContent = h[0]; svg.appendChild(t); }
+  });
+  return svg;
+}
+function holdText(r){ return [el("span",{class:"code",text:r[0],title:HOLD_NAMES[r[0]]}), HOLD_NAMES[r[0]] + ": " + r[1]]; }
+function plain(items){ return el("ul",{class:"plain"}, items.map(function(t){ return el("li",{text:t}); })); }
+function backLink(){ return el("a",{class:"back",href:"#home",text:"‹ Hub"}); }
+
+/* ================= Home ================= */
+function workoutTile(){
+  var wi = weekInfo(), w = clampWeek(), push = w>=5, day = DAYS[todayIdx];
+  var keys = [], kids = [];
+  var head = !wi.set ? "No start date yet. Showing week 1." : wi.n<1 ? "Starts " + fmtDate(mondayOf(parseIso(S.start))) + ". Showing week 1." : wi.n>8 ? "Eight weeks complete. Showing week 8." : "Week " + wi.n + " of 8";
+  kids.push(el("div",{class:"row spread"},[ el("div",null,[ el("h3",{text:"Today's workout · " + head}), el("h2",{text:day.title}) ]),
+    !wi.set ? el("button",{class:"btn",id:"start-week",type:"button",text:"Start this week",onclick:function(){ S.start = iso(thisMonday); save(); render(); }}) : null ]));
+  var n = 0;
+  function add(node){ var k = "w:"+todayKey+":"+(n++); keys.push(k); return check(k, node); }
+  day.order.forEach(function(part){
+    if(part==="steps"){ kids.push(el("div",{class:"checks"}, (push?day.push:day.base).map(function(t){ return add(t); }))); }
+    if(part==="board"){
+      var b = blockFor(w), rows = boardRows(day.board, w);
+      var label = b.both ? "Board session" : (day.board==="first" ? "Max-hang session" : "Repeater session");
+      kids.push(el("h3",{text:label + " · " + b.weeks}));
+      kids.push(boardSvg(rows.map(function(r){return r[0];}), false));
+      kids.push(el("p",{class:"small",text:"Warm up first. Open-hand or half-crimp only. Repeater set: 7 s on, 3 s off, six times; 3 min between sets."}));
+      kids.push(el("div",{class:"checks"}, rows.map(function(r){ return add(holdText(r)); })));
+    }
+    if(part==="circuit"){
+      var c = CIRCUITS[day.circuit];
+      kids.push(el("h3",{text:c.name + " · " + (push?"3":"2") + " rounds, 60–90 s rest between moves"}));
+      kids.push(el("div",{class:"checks"}, c.items.map(function(t){ return add(t); })));
+    }
+  });
+  var all = keys.length && keys.every(ticked);
+  if(all){ kids.push(el("p",{class:"done-banner",role:"status",text:"Session complete."})); }
+  kids.push(el("a",{href:"#workout",class:"small",text:"Full plan, board key and printable sheets"}));
+  return el("section",{class:"card pin","aria-label":"Today's workout"}, kids);
+}
+function habitKey(h){ return "h:"+h.id+":"+(h.period==="week" ? iso(addDays(today, -((today.getDay()+1)%7))) : todayKey); }
+function habits(){
+  var out = [];
+  (D.habits||[]).forEach(function(h){
+    if(h.days.indexOf(today.getDay())<0){ return; }
+    var k = habitKey(h), on = ticked(k);
+    if(on && h.hideWhenDone){
+      if(UI.cmeUndo===h.id){ out.push(el("p",{class:"small"},[ h.label + ": done. ", el("button",{type:"button",class:"link",text:"Undo",onclick:function(){ setTick(k,false); UI.cmeUndo=false; render(); }}) ])); }
+      return;
+    }
+    out.push(check(k, h.label, {after:function(v){ UI.cmeUndo = (v && h.hideWhenDone) ? h.id : false; }}));
+  });
+  return out.length ? el("section",{class:"card","aria-label":"Today"},[ el("h3",{text:"Today"}), el("div",{class:"checks"}, out) ]) : null;
+}
+function projectsSorted(){ return (D.projects||[]).slice().sort(function(a,b){ return (a.urgency||99)-(b.urgency||99); }); }
+function firstOpenNext(p){ var n = (p.next||[]).filter(function(x){ return !ticked("t:"+x.id); })[0]; return n ? n.text : null; }
+function projectList(){
+  var rows = projectsSorted().map(function(p,i){
+    var nx = firstOpenNext(p);
+    if(!nx && p.checklist){ var open = itemsFor("p:"+p.id).filter(function(x){ return !ticked("t:"+x.id); }); nx = open.length ? open.length + " open to-do" + (open.length>1?"s":"") : null; }
+    return el("a",{class:"proj",href:"#p-"+p.id},[
+      el("div",{class:"row spread"},[ el("span",{class:"name",text:p.name}), i===0 ? el("span",{class:"tag hot",text:"Most urgent"}) : null ]),
+      el("span",{class:"sub",text:p.status}),
+      nx ? el("span",{class:"next"},[ el("b",{text:"Next: "}), nx ]) : null ]);
+  });
+  return el("section",{class:"card","aria-label":"Projects"}, [el("h3",{text:"Projects"})].concat(rows));
+}
+function itemsFor(cat){
+  var base = (D.todos||[]).filter(function(t){ return t.cat===cat; });
+  return base.concat(S.my.filter(function(t){ return t.cat===cat; })).filter(function(t){ return !S.gone[t.id]; });
+}
+function todoChecks(cat){
+  return itemsFor(cat).map(function(t){
+    var node = [t.text];
+    if(ticked("t:"+t.id)){ node.push(" "); node.push(el("button",{type:"button",class:"link",text:"clear",onclick:function(e){ e.preventDefault(); S.gone[t.id]=true; S.my = S.my.filter(function(x){ return x.id!==t.id; }); save(); render(); }})); }
+    return check("t:"+t.id, node);
+  });
+}
+function addTodoForm(fixedCat, idp){
+  var cats = D.todoCats||["General"];
+  return el("form",{class:"inline",onsubmit:function(e){
+      e.preventDefault(); var inp = document.getElementById(idp+"-text"), v = inp.value.trim(); if(!v){ return; }
+      var cat = fixedCat || document.getElementById(idp+"-cat").value;
+      S.my.push({id:newId("m"), cat:cat, text:v}); save(); render();
+      var again = document.getElementById(idp+"-text"); if(again){ again.focus(); }
+    }},[
+    el("input",{type:"text",id:idp+"-text",maxlength:"200",placeholder:"Add a to-do","aria-label":"New to-do"}),
+    fixedCat ? null : el("select",{id:idp+"-cat","aria-label":"Category"}, cats.map(function(c){ return el("option",{value:c,text:c,selected:c==="General"?"selected":null}); })),
+    el("button",{class:"btn",type:"submit",text:"Add"}) ]);
+}
+function todoSection(){
+  var kids = [ el("h3",{text:"To-dos"}) ], any = false;
+  (D.todoCats||[]).forEach(function(c){
+    var rows = todoChecks(c); if(!rows.length){ return; } any = true;
+    kids.push(el("h2",{text:c})); kids.push(el("div",{class:"checks"}, rows));
+  });
+  if(!any){ kids.push(el("p",{class:"sub",text:"Nothing on the list. Add one below, or tell Claude."})); }
+  kids.push(addTodoForm(null,"todo"));
+  return el("section",{class:"card","aria-label":"To-dos"}, kids);
+}
+function importBox(){
+  return el("details",{class:"card"},[ el("summary",{text:"Paste an update from Claude"}),
+    el("p",{class:"small",text:"For items kept off the public site. Paste the block Claude gave you and they are added on this device only."}),
+    el("form",{onsubmit:function(e){
+      e.preventDefault(); var raw = document.getElementById("import-text").value.trim(), n = 0;
+      try{
+        var j = JSON.parse(raw);
+        (j.todos||[]).forEach(function(t){ if(t && t.text){ S.my.push({id:newId("i"), cat:String(t.cat||"General"), text:String(t.text)}); n++; } });
+        Object.keys(j.checklists||{}).forEach(function(pid){ (j.checklists[pid]||[]).forEach(function(t){ S.my.push({id:newId("i"), cat:"p:"+pid, text:String(t)}); n++; }); });
+        (j.lists||[]).forEach(function(t){ if(t && t.title){ S.myList.push({id:newId("l"), list:String(t.list||"books"), title:String(t.title), by:t.by?String(t.by):""}); n++; } });
+        save(); UI.msg = n ? "Added " + n + " item" + (n>1?"s":"") + "." : "That block had nothing to add.";
+      }catch(err){ UI.msg = "That text isn't a valid update block. Copy the whole block from Claude, from the first { to the last }."; }
+      render();
+    }},[ el("label",{class:"f",for:"import-text"},["Update block", el("textarea",{id:"import-text"})]), el("div",{class:"row"},[ el("button",{class:"btn",type:"submit",text:"Add these items"}) ]) ]) ]);
+}
+function viewHome(){
+  var out = [ el("header",null,[ el("h1",{text:"Hub"}), el("p",{class:"sub",text:fmtDate(today) + (D.workoutGoal ? " · " + D.workoutGoal : "")}) ]) ];
+  if(UI.saveErr){ out.push(el("p",{class:"warn",text:"This browser is blocking on-device storage, so ticks won't be kept. Private browsing does this."})); }
+  if(UI.msg){ out.push(el("p",{class:"warn",role:"status",text:UI.msg})); }
+  out.push(workoutTile()); out.push(habits()); out.push(projectList()); out.push(todoSection());
+  out.push(el("nav",{class:"links","aria-label":"More"},[ el("a",{href:"#other",text:"Other projects"}), el("a",{href:"#lists",text:"Books and films"}), el("a",{href:"#workout",text:"Workout plan"}), el("a",{href:"#files",text:"My files"}) ]));
+  out.push(importBox());
+  out.push(el("p",{class:"small",text:"Project notes last updated " + (D.updated||"") + ". Ticks and anything you add are stored on this device."}));
+  return out;
+}
+
+/* ================= Project page ================= */
+function viewProject(id){
+  var p = (D.projects||[]).filter(function(x){ return x.id===id; })[0];
+  if(!p){ return [ backLink(), el("p",{text:"That project isn't on the hub."}) ]; }
+  var out = [ backLink(), el("header",null,[ el("h1",{text:p.name}) ]) ];
+  out.push(el("section",{class:"card pin"},[ el("h3",{text:"Where it stands"}), el("p",{text:p.status}) ]));
+  if((p.next||[]).length){ out.push(el("section",{class:"card"},[ el("h3",{text:"Next steps"}), el("div",{class:"checks"}, p.next.map(function(n){ return check("t:"+n.id, n.text); })) ])); }
+  if(p.checklist){
+    var rows = todoChecks("p:"+p.id);
+    out.push(el("section",{class:"card"},[ el("h3",{text:"To-dos"}), rows.length ? el("div",{class:"checks"}, rows) : el("p",{class:"sub",text:"No to-dos yet."}), addTodoForm("p:"+p.id,"pt") ]));
+  }
+  if((p.think||[]).length){
+    out.push(el("section",{class:"card"},[ el("h3",{text:"Things to think about"}), el("ul",{class:"plain think"}, p.think.map(function(t){ return el("li",null,[ t.text, t.by==="claude" ? el("span",{class:"by",text:"Claude's suggestion"}) : null ]); })) ]));
+  }
+  if((p.refs||[]).length){
+    var refs = [ el("h3",{text:"Reference"}) ];
+    p.refs.forEach(function(r){
+      if(r.url){ var u = safeUrl(r.url); if(u){ refs.push(el("p",null,[ el("a",{href:u,target:"_blank",rel:"noopener",text:r.title}) ])); } }
+      else { refs.push(el("details",null,[ el("summary",{text:r.title}), plain(r.body||[]) ])); }
+    });
+    refs.push(el("p",{class:"small",text:"Links to Claude pages open only when you're signed in to Claude."}));
+    out.push(el("section",{class:"card"}, refs));
+  }
+  return out;
+}
+
+/* ================= Workout page ================= */
+function viewWorkout(){
+  var out = [ backLink(), el("header",null,[ el("h1",{text:"Workout plan"}), el("p",{class:"sub",text:D.workoutGoal||""}) ]) ];
+  var rows = DAYS.map(function(d){
+    function cell(push){ var t = (push?d.push:d.base).slice(); if(d.board){ t.unshift(push ? (d.board==="first"?"Max-hang board session.":"Repeater board session.") : "Board session."); } if(d.circuit){ t.push(CIRCUITS[d.circuit].name + ", " + (push?3:2) + " rounds."); } return t.join(" "); }
+    return el("tr",null,[ el("td",null,[el("strong",{text:d.k})]), el("td",null,[el("strong",{text:d.title})]), el("td",{text:cell(false)}), el("td",{text:cell(true)}) ]);
+  });
+  out.push(el("section",{class:"card"},[ el("h2",{text:"The week"}), el("p",{class:"sub",text:"Finger days are Tuesday, Thursday and Saturday, always with a day between them."}),
+    el("div",{class:"scroll"},[ el("table",null,[ el("thead",null,[ el("tr",null,[ el("th",{text:"Day"}), el("th",{text:"Session"}), el("th",{text:"Weeks 1–4"}), el("th",{text:"Weeks 5–8"}) ]) ]), el("tbody",null,rows) ]) ]) ]));
+  out.push(el("section",{class:"card"},[ el("h2",{text:"Strength circuits"}), el("h3",{text:"Strength A · Monday"}), plain(CIRCUITS.A.items), el("h3",{text:"Strength B · Thursday"}), plain(CIRCUITS.B.items) ]));
+  out.push(el("section",{class:"card"},[ el("h2",{text:"Beastmaker hold key"}), boardSvg([], true),
+    el("ul",{class:"plain"}, Object.keys(HOLD_NAMES).map(function(c){ return el("li",null,[el("span",{class:"code",text:c}), HOLD_NAMES[c]]); })),
+    el("p",{class:"note",text:"The diagram is a simplified schematic and hold positions are approximate. Match holds on your board by type and depth."}), el("h3",{text:"Every board session"}), plain(BOARD_RULES) ]));
+  var cur = blockFor(clampWeek());
+  BLOCKS.forEach(function(b,i){
+    var kids = [ el("h3",{text:b.weeks + (b===cur && S.start ? " · current" : "")}), el("h2",{text:b.name}), boardSvg(b.on,false) ];
+    function list(rows){ return el("ul",{class:"plain"}, rows.map(function(r){ return el("li",null,holdText(r)); })); }
+    if(b.both){ kids.push(el("h3",{text:"Week " + (i*2+1)})); kids.push(list(b.both(i*2+1))); kids.push(el("h3",{text:"Week " + (i*2+2)})); kids.push(list(b.both(i*2+2))); }
+    else { kids.push(el("h3",{text:"Tuesday: max hangs"})); kids.push(list(b.first)); kids.push(el("h3",{text:"Thursday: repeaters"})); kids.push(list(b.second)); }
+    out.push(el("section",{class:"card"+(b===cur && S.start ? " pin":"")}, kids));
+  });
+  out.push(el("section",{class:"card"},[ el("h2",{text:"Rules that keep it working"}), plain(PLAN_RULES),
+    el("p",{class:"warn",text:"The brake: if you can't finish a max-hang set with clean form, repeat that week before adding load or moving on."}) ]));
+  out.push(el("section",{class:"card"},[ el("h2",{text:"Printable sheets"}),
+    el("p",null,[ el("a",{href:"docs/8-week-workout-plan.pdf",target:"_blank",rel:"noopener",text:"8-week workout plan (PDF)"}) ]),
+    el("p",null,[ el("a",{href:"docs/beastmaker-1000-8-week-plan.pdf",target:"_blank",rel:"noopener",text:"Beastmaker 1000 finger plan (PDF)"}) ]) ]));
+  out.push(el("section",{class:"card"},[ el("h2",{text:"Start date"}),
+    el("form",{onsubmit:function(e){ e.preventDefault(); var v = document.getElementById("start-date").value; if(v){ S.start = iso(mondayOf(parseIso(v))); save(); UI.msg=""; render(); } }},[
+      el("label",{class:"f",for:"start-date"},["Week 1 begins the Monday of", el("input",{type:"date",id:"start-date",value:S.start||iso(thisMonday)})]),
+      el("div",{class:"row"},[ el("button",{class:"btn",type:"submit",text:"Save start date"}) ]) ]) ]));
+  return out;
+}
+
+/* ================= Other projects, lists ================= */
+function viewOther(){
+  var out = [ backLink(), el("header",null,[ el("h1",{text:"Other projects"}), el("p",{class:"sub",text:"Parked ideas and quieter projects. Tell Claude to bring one back to the hub."}) ]) ];
+  out.push(el("section",{class:"card"}, (D.other||[]).map(function(o){ return el("div",{class:"doc"},[ el("strong",{text:o.name}), el("span",{class:"sub",text:o.note||""}) ]); })));
+  return out;
+}
+function viewLists(){
+  var out = [ backLink(), el("header",null,[ el("h1",{text:"Books and films"}) ]) ];
+  (D.lists||[]).forEach(function(L){
+    var items = (L.items||[]).concat(S.myList.filter(function(x){ return x.list===L.id; })).filter(function(x){ return !S.gone[x.id]; });
+    var rows = items.map(function(it){
+      var node = [ it.title ]; if(it.by){ node.push(el("span",{class:"by",text:"from " + it.by})); } if(it.note){ node.push(el("span",{class:"small",text:" " + it.note})); }
+      if(ticked("t:"+it.id)){ node.push(" "); node.push(el("button",{type:"button",class:"link",text:"clear",onclick:function(e){ e.preventDefault(); S.gone[it.id]=true; S.myList = S.myList.filter(function(x){ return x.id!==it.id; }); save(); render(); }})); }
+      return check("t:"+it.id, node);
+    });
+    out.push(el("section",{class:"card"},[ el("h2",{text:L.name}), rows.length ? el("div",{class:"checks"}, rows) : el("p",{class:"sub",text:"Empty for now."}),
+      el("form",{class:"inline",onsubmit:function(e){ e.preventDefault(); var t = document.getElementById("l-"+L.id+"-t").value.trim(); if(!t){ return; } var by = document.getElementById("l-"+L.id+"-b").value.trim(); S.myList.push({id:newId("l"), list:L.id, title:t, by:by}); save(); render(); }},[
+        el("input",{type:"text",id:"l-"+L.id+"-t",maxlength:"160",placeholder:"Title","aria-label":"Title for " + L.name}),
+        el("input",{type:"text",id:"l-"+L.id+"-b",maxlength:"80",placeholder:"Recommended by (optional)","aria-label":"Recommended by"}),
+        el("button",{class:"btn",type:"submit",text:"Add"}) ]) ]));
+  });
+  return out;
+}
+
+/* ================= My files (stored on this device) ================= */
+var idb = null, files = [], objUrls = {}, filesState = "loading";
+function openIdb(){ return new Promise(function(res, rej){ if(!window.indexedDB){ rej(new Error("none")); return; } var r = indexedDB.open("hub-files", 1); r.onupgradeneeded = function(){ r.result.createObjectStore("docs",{keyPath:"id"}); }; r.onsuccess = function(){ res(r.result); }; r.onerror = function(){ rej(r.error); }; }); }
+function tx(mode, fn){ return new Promise(function(res, rej){ var t = idb.transaction("docs", mode), out = fn(t.objectStore("docs")); t.oncomplete = function(){ res(out && out.result); }; t.onerror = t.onabort = function(){ rej(t.error); }; }); }
+function fileFail(e){ UI.msg = (e && e.name==="QuotaExceededError") ? "This device's storage for the app is full. Remove something and try again." : "That didn't save on this device. Try again."; render(); }
+function addFile(d){ d.id = newId("f"); d.createdAt = Date.now(); return tx("readwrite",function(s){ return s.put(d); }).then(function(){ files.push(d); UI.msg=""; UI.form=null; render(); }); }
+function fileUrl(d){ if(!d.blob){ return null; } if(!objUrls[d.id]){ objUrls[d.id] = URL.createObjectURL(d.blob); } return objUrls[d.id]; }
+function viewFiles(){
+  var out = [ backLink(), el("header",null,[ el("h1",{text:"My files"}), el("p",{class:"sub",text:"Documents, links and notes kept on this device only."}) ]) ];
+  if(filesState==="none"){ out.push(el("p",{class:"warn",text:"This browser is blocking on-device storage, which private browsing does. Open the app in a normal window to keep files."})); return out; }
+  var add = [ el("div",{class:"row"},[ el("label",{class:"btn",for:"file-input"},["Upload a file"]),
+      el("button",{type:"button",class:"btn ghost",id:"add-link",text:"Add a link",onclick:function(){ UI.form = UI.form==="link"?null:"link"; render(); }}),
+      el("button",{type:"button",class:"btn ghost",id:"add-note",text:"Write a note",onclick:function(){ UI.form = UI.form==="note"?null:"note"; render(); }}) ]),
+    el("input",{type:"file",id:"file-input",hidden:"hidden",accept:"application/pdf,image/*,text/plain,text/markdown,text/csv,application/json",onchange:function(e){ var f = e.target.files && e.target.files[0]; if(!f){ return; } if(f.size>20*1024*1024){ UI.msg="That file is over 20 MB. Choose a smaller one."; render(); return; } addFile({title:f.name, kind:"file", blob:f, contentType:f.type||""}).catch(fileFail); }}),
+    el("p",{class:"small",text:"Files: PDF, images or text, up to 20 MB each."}) ];
+  if(UI.msg){ add.push(el("p",{class:"warn",role:"status",text:UI.msg})); }
+  if(UI.form==="link"){ add.push(el("form",{onsubmit:function(e){ e.preventDefault(); var u = safeUrl(document.getElementById("link-url").value.trim()); if(!u){ UI.msg="That address needs to start with https:// or http://."; render(); return; } addFile({title:document.getElementById("link-title").value.trim(), kind:"link", url:u}).catch(fileFail); }},[
+      el("label",{class:"f",for:"link-title"},["Name", el("input",{type:"text",id:"link-title",maxlength:"120",required:"required"})]),
+      el("label",{class:"f",for:"link-url"},["Web address", el("input",{type:"url",id:"link-url",placeholder:"https://",required:"required"})]),
+      el("div",{class:"row"},[ el("button",{class:"btn",type:"submit",text:"Save link"}) ]) ])); }
+  if(UI.form==="note"){ add.push(el("form",{onsubmit:function(e){ e.preventDefault(); addFile({title:document.getElementById("note-title").value.trim(), kind:"note", body:document.getElementById("note-body").value}).catch(fileFail); }},[
+      el("label",{class:"f",for:"note-title"},["Name", el("input",{type:"text",id:"note-title",maxlength:"120",required:"required"})]),
+      el("label",{class:"f",for:"note-body"},["Text", el("textarea",{id:"note-body",required:"required"})]),
+      el("div",{class:"row"},[ el("button",{class:"btn",type:"submit",text:"Save note"}) ]) ])); }
+  out.push(el("section",{class:"card"}, add));
+  var list = [];
+  if(!files.length){ list.push(el("p",{class:"sub",text: filesState==="loading" ? "Loading…" : "Nothing saved yet."})); }
+  files.slice().sort(function(a,b){ return b.createdAt-a.createdAt; }).forEach(function(d){
+    var kind = d.kind==="link" ? "Link" : d.kind==="note" ? "Note" : (d.contentType.indexOf("image/")===0 ? "Image" : d.contentType==="application/pdf" ? "PDF" : "File");
+    var href = d.kind==="link" ? safeUrl(d.url) : d.kind==="file" ? fileUrl(d) : null;
+    var kids = [ el("div",{class:"row"},[ el("span",{class:"tag",text:kind}), href ? el("a",{href:href,target:"_blank",rel:"noopener",text:d.title||"Untitled"}) : el("strong",{text:d.title||"Untitled"}) ]) ];
+    if(d.kind==="note"){ var open = !!UI.openNote[d.id]; kids.push(el("div",{class:"row"},[ el("button",{type:"button",class:"link",text:open?"Hide text":"Show text",onclick:function(){ UI.openNote[d.id]=!open; render(); }}) ])); if(open){ kids.push(el("pre",{text:d.body||""})); } }
+    if(kind==="Image" && href){ kids.push(el("img",{src:href,alt:d.title||"Uploaded image",loading:"lazy"})); }
+    if(UI.confirmDel===d.id){ kids.push(el("div",{class:"row"},[ el("span",{class:"small",text:"Remove this for good?"}), el("button",{type:"button",class:"btn danger",text:"Remove",onclick:function(){ UI.confirmDel=null; tx("readwrite",function(s){ return s.delete(d.id); }).then(function(){ files = files.filter(function(x){ return x.id!==d.id; }); if(objUrls[d.id]){ URL.revokeObjectURL(objUrls[d.id]); delete objUrls[d.id]; } render(); }).catch(fileFail); }}), el("button",{type:"button",class:"btn ghost",text:"Keep",onclick:function(){ UI.confirmDel=null; render(); }}) ])); }
+    else { kids.push(el("div",{class:"row"},[ el("button",{type:"button",class:"link",text:"Remove",onclick:function(){ UI.confirmDel=d.id; render(); }}) ])); }
+    list.push(el("div",{class:"doc"}, kids));
+  });
+  out.push(el("section",{class:"card"}, list));
+  return out;
+}
+
+/* ================= Render and routing ================= */
+function currentView(){
+  var h = (location.hash||"").replace("#","");
+  if(h.indexOf("p-")===0){ return viewProject(h.slice(2)); }
+  if(h==="workout"){ return viewWorkout(); }
+  if(h==="other"){ return viewOther(); }
+  if(h==="lists"){ return viewLists(); }
+  if(h==="files"){ return viewFiles(); }
+  return viewHome();
+}
+function render(){
+  var view = document.getElementById("view");
+  if(!D){ view.textContent = ""; view.appendChild(el("p",{class: UI.dataErr ? "warn" : "sub", text: UI.dataErr ? "The hub's content couldn't be loaded. Check your connection and open the app again." : "Loading…"})); return; }
+  var focusId = document.activeElement && document.activeElement.id, y = window.scrollY;
+  view.textContent = "";
+  currentView().forEach(function(n){ if(n){ view.appendChild(n); } });
+  if(focusId){ var f = document.getElementById(focusId); if(f && (f.tagName==="BUTTON" || f.type==="checkbox")){ f.focus({preventScroll:true}); } }
+  window.scrollTo(0, y);
+}
+window.addEventListener("hashchange", function(){ UI.msg=""; UI.form=null; render(); window.scrollTo(0,0); });
+
+function loadData(){
+  return fetch("data.json",{cache:"no-cache"}).then(function(r){ if(!r.ok){ throw new Error("bad"); } return r.json(); })
+    .then(function(j){ D = j; try{ localStorage.setItem(LS+"-data", JSON.stringify(j)); }catch(e){} })
+    .catch(function(){ try{ D = JSON.parse(localStorage.getItem(LS+"-data")||"null"); }catch(e){ D = null; } if(!D){ UI.dataErr = true; } });
+}
+loadData().then(render);
+openIdb().then(function(d){ idb = d; return tx("readonly",function(s){ return s.getAll(); }); }).then(function(r){ files = r||[]; filesState="ready"; if(D){ render(); } if(navigator.storage && navigator.storage.persist){ navigator.storage.persist().catch(function(){}); } }).catch(function(){ filesState="none"; if(D){ render(); } });
+if("serviceWorker" in navigator){ window.addEventListener("load", function(){ navigator.serviceWorker.register("sw.js").catch(function(){}); }); }
+</script>
+</body>
+</html>
