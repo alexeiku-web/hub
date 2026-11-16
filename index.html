@@ -316,7 +316,7 @@ function importBox(){
     }},[ el("label",{class:"f",for:"import-text"},["Update block", el("textarea",{id:"import-text"})]), el("div",{class:"row"},[ el("button",{class:"btn",type:"submit",text:"Add these items"}) ]) ]) ]);
 }
 function viewHome(){
-  var out = [ el("header",null,[ el("h1",{text:"Hub"}), el("p",{class:"sub",text:fmtDate(today) + (D.workoutGoal ? " · " + D.workoutGoal : "")}) ]) ];
+  var out = [ el("header",null,[ el("h1",{text:"ALEXEI KU\u2019S HUB"}), el("p",{class:"sub",text:fmtDate(today) + (D.workoutGoal ? " · " + D.workoutGoal : "")}) ]) ];
   if(UI.saveErr){ out.push(el("p",{class:"warn",text:"This browser is blocking on-device storage, so ticks won't be kept. Private browsing does this."})); }
   if(UI.msg){ out.push(el("p",{class:"warn",role:"status",text:UI.msg})); }
   out.push(workoutTile()); out.push(habits()); out.push(projectList()); out.push(todoSection());
