@@ -104,6 +104,20 @@
           ]
         },
         {
+          "title": "Keg pressures and force carbonation",
+          "body": [
+            "All pressures assume a cold keg at fridge temperature, about 38 F. Chill first: cold cider takes up CO2 far better than warm.",
+            "Aging: purge the headspace (30 psi, vent 5 or 6 times), then hold at 10 to 15 psi. The keg can sit disconnected from the tank; it seals itself.",
+            "Aging at 20 psi is also safe. Kept cold for weeks it ends up near 3 volumes of CO2, which is very fizzy, so vent it and let it settle at serving pressure for a day or two before pouring.",
+            "Serving: 10 to 12 psi, roughly 2.5 volumes of CO2. For a champagne-like sparkle use 14 to 15 psi with about 10 feet of 3/16 inch beverage line to keep the foam down.",
+            "Carbonating, slow and safe: connect the gas at 10 to 12 psi and leave it 1 to 2 weeks. It cannot overshoot.",
+            "Carbonating, burst: 30 psi for 24 to 36 hours, then vent and drop to serving pressure. Drinkable in 2 to 3 days.",
+            "Carbonating, same day: at 30 psi, rock or roll the keg for a few minutes, rest it an hour or more, vent, then set serving pressure. Fast but easy to overdo.",
+            "Too fizzy: take the gas off, vent the relief valve a few times over a day, then reconnect at serving pressure.",
+            "After a party: top up to serving pressure, pull both disconnects and keep the keg cold. A month later, check that the relief valve still hisses; if not, find the leak."
+          ]
+        },
+        {
           "title": "Nutrient plan for the 7-gallon fermenters",
           "body": [
             "Dose 1: as soon as you see active fermentation (bubbling airlock or foam).",
