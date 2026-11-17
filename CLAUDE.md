@@ -21,3 +21,6 @@ Alexei's personal dashboard, served by GitHub Pages from the default branch root
 
 ## Checking a change
 Serve the folder (`python3 -m http.server`) and open it; `?date=YYYY-MM-DD` previews another day. Bump `VERSION` in `sw.js` only when `index.html` changes in a way that must replace cached copies.
+
+## Workout schedule
+The 8-week plan, the trip-prep phase after week 8 (two rope days, one board day) and the 7-day taper before the trip are built into `index.html` (`DAYS`, `PREP`, `TAPER`). The start date and trip date are set by Alexei in the app and stored on his phone, not in this repo.

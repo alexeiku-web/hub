@@ -145,6 +145,29 @@ var BLOCKS = [
    first:[["M4","6 × 10 s. Add 5–10 lb once all six are clean."],["M3","3 × 7 s at bodyweight."],["S35","4 × 10 s."]],
    second:[["D4","5 repeater sets."],["S20","3 repeater sets."],["D3","3 repeater sets."],["J","4 × 6–8 pull-ups, or weighted sets of 5."]]}
 ];
+/* After week 8: two rope sessions a week, one board session, until the taper. */
+var PREP_BOARD = [["M4","6 × 10 s at the load you reached. Hold it there; don't add more before the trip."],["M3","3 × 7 s at bodyweight."],["S35","4 × 10 s."]];
+var ROPE_VOLUME = ["Rope climbing, 60–90 min: lead or top-rope routes a couple of grades below your limit, with short rests between laps.","Practice clipping from good stances and resting on route.","FitOn stretch, 10 min: forearms, shoulders, hips."];
+var ROPE_HARD = ["Rope climbing, 60–90 min: warm up on easy routes, then 3–4 tries on routes near your limit with full rests.","Take a few small, controlled practice falls. Finish with easy laps.","FitOn stretch, 10 min: forearms, shoulders, hips."];
+var PREP = [
+  {k:"Mon", name:"Monday", title:"Treadmill, steady + Strength A", order:["steps","circuit"], circuit:"A", steps:["Treadmill: 35–40 min at an easy, talking-pace effort, 1–3% incline."]},
+  {k:"Tue", name:"Tuesday", title:"Beastmaker + FitOn stretch", order:["board","steps"], rows:PREP_BOARD, steps:["FitOn stretch, 15 min: hips, hamstrings, shoulders."]},
+  {k:"Wed", name:"Wednesday", title:"Treadmill, intervals", order:["steps"], steps:["5 min easy.","4 rounds: 4 min hard, 3 min easy.","5 min easy."]},
+  {k:"Thu", name:"Thursday", title:"Rope climbing: volume", order:["steps"], steps:ROPE_VOLUME},
+  {k:"Fri", name:"Friday", title:"Long easy cardio + FitOn stretch", order:["steps"], steps:["50–60 min easy: incline treadmill walk, outdoor walk or hike.","FitOn stretch or yoga, 10–15 min."]},
+  {k:"Sat", name:"Saturday", title:"Rope climbing: harder routes", order:["steps"], steps:ROPE_HARD},
+  {k:"Sun", name:"Sunday", title:"Rest + FitOn mobility", order:["steps"], steps:["FitOn yoga or full-body stretch class, 20–30 min. Nothing else."]}
+];
+/* Final week, by days left before the trip. No hangboarding this week. */
+var TAPER = {
+  7:{title:"Easy treadmill + light strength", steps:["Treadmill: 20–25 min easy.","Strength A, 1 light round."]},
+  6:{title:"Light rope session", steps:["Rope climbing, 45–60 min on easy routes. Stop while you still feel fresh.","FitOn stretch, 10 min."]},
+  5:{title:"Easy walk + stretch", steps:["20–30 min easy walk.","FitOn stretch, 15 min: hips, hamstrings, shoulders."]},
+  4:{title:"Light rope session", steps:["Rope climbing, 45 min on easy routes. Nothing near your limit.","FitOn stretch, 10 min."]},
+  3:{title:"Easy walk + stretch", steps:["20–30 min easy walk.","FitOn stretch, 15 min."]},
+  2:{title:"Rest", steps:["FitOn mobility class, 15–20 min. Nothing else."]},
+  1:{title:"Rest and pack", steps:["Rest. Pack, and trim and file your nails and any rough skin."]}
+};
 var BOARD_RULES = ["Open-hand or half-crimp only. Never full crimp on the board.","Shoulders engaged, elbows slightly bent. No dead sag.","End each hang with 2–3 seconds in reserve.","Sharp pain in a finger or palm: stop for the day.","Repeater set: 7 s on, 3 s off, six times. Rest 3 min between sets; 1 min between single hangs.","Warm up first: arm circles, wrist rolls, then 2–3 easy hangs on the jugs with feet on a chair."];
 var PLAN_RULES = ["Fingers come first. If a finger or palm feels sharp or tweaky, drop Thursday's board session before anything else.","Missed a day? Skip it and carry on. Don't stack two sessions to catch up.","Easy days stay easy. Monday and Friday cardio should feel almost too gentle.","FitOn: use the Stretching and Yoga categories and choose classes by length and body area.","Circuits: do the moves in order, rest 60–90 s between moves, then repeat the round. Pick a dumbbell you could press about 12 times."];
 
@@ -170,7 +193,7 @@ var today = testDate ? parseIso(testDate) : new Date();
 var todayKey = iso(today), todayIdx = (today.getDay()+6)%7, thisMonday = mondayOf(today);
 var D = null;                       // data.json
 var LS = "hub-v1";
-var S = { start:null, ticks:{}, my:[], myList:[], gone:{}, daily:[] };
+var S = { start:null, ticks:{}, my:[], myList:[], gone:{}, daily:[], trip:null };
 var UI = { msg:"", form:null, confirmDel:null, openNote:{}, cmeUndo:false, dataErr:false };
 (function(){ try{ var s = JSON.parse(localStorage.getItem(LS)||"null"); if(s){ for(var k in S){ if(s[k]!=null){ S[k]=s[k]; } } } }catch(e){} })();
 S.daily = (S.daily||[]).filter(function(d){ return d.date>=todayKey || !S.ticks["t:"+d.id]; });
@@ -182,6 +205,7 @@ function weekInfo(){
   if(!S.start){ return {n:1,set:false}; }
   return {n: Math.round((thisMonday - mondayOf(parseIso(S.start)))/(7*864e5)) + 1, set:true};
 }
+function daysToTrip(){ return S.trip ? Math.round((parseIso(S.trip) - parseIso(todayKey))/864e5) : null; }
 function clampWeek(){ return Math.min(8, Math.max(1, weekInfo().n)); }
 function blockFor(w){ return BLOCKS[Math.floor((w-1)/2)]; }
 function boardRows(dayBoard, w){ var b = blockFor(w); return b.both ? b.both(w) : b[dayBoard]; }
@@ -214,30 +238,41 @@ function backLink(){ return el("a",{class:"back",href:"#home",text:"‹ Hub"}); 
 /* ================= Home ================= */
 function workoutTile(){
   var wi = weekInfo(), w = clampWeek(), push = w>=5, day = DAYS[todayIdx];
-  var keys = [], kids = [];
-  var head = !wi.set ? "No start date yet. Showing week 1." : wi.n<1 ? "Starts " + fmtDate(mondayOf(parseIso(S.start))) + ". Showing week 1." : wi.n>8 ? "Eight weeks complete. Showing week 8." : "Week " + wi.n + " of 8";
+  var keys = [], kids = [], left = daysToTrip(), prep = false;
+  var head = !wi.set ? "No start date yet. Showing week 1." : wi.n<1 ? "Starts " + fmtDate(mondayOf(parseIso(S.start))) + ". Showing week 1." : "Week " + wi.n + " of 8";
+  if(left!==null && left<=0 && left>-21){
+    return el("section",{class:"card pin","aria-label":"Today's workout"},[ el("h3",{text:"Today's workout"}), el("h2",{text:"Trip time"}), el("p",{text:"The plan is done. Climb well, and stay off the sandstone if it's wet."}), el("a",{href:"#workout",class:"small",text:"Full plan, board key and printable sheets"}) ]);
+  }
+  if(left!==null && left>=1 && left<=7){
+    day = {title:TAPER[left].title, order:["steps"], steps:TAPER[left].steps};
+    head = "Taper · " + left + (left===1?" day":" days") + " to the trip · no hangboarding";
+  } else if(wi.set && wi.n>8){
+    day = PREP[todayIdx]; prep = true;
+    head = "Trip prep · two rope days a week";
+  }
   kids.push(el("div",{class:"row spread"},[ el("div",null,[ el("h3",{text:"Today's workout · " + head}), el("h2",{text:day.title}) ]),
     !wi.set ? el("button",{class:"btn",id:"start-week",type:"button",text:"Start this week",onclick:function(){ S.start = iso(thisMonday); save(); render(); }}) : null ]));
   var n = 0;
   function add(node){ var k = "w:"+todayKey+":"+(n++); keys.push(k); return check(k, node); }
   day.order.forEach(function(part){
-    if(part==="steps"){ kids.push(el("div",{class:"checks"}, (push?day.push:day.base).map(function(t){ return add(t); }))); }
+    if(part==="steps"){ kids.push(el("div",{class:"checks"}, (day.steps || (push?day.push:day.base)).map(function(t){ return add(t); }))); }
     if(part==="board"){
-      var b = blockFor(w), rows = boardRows(day.board, w);
-      var label = b.both ? "Board session" : (day.board==="first" ? "Max-hang session" : "Repeater session");
-      kids.push(el("h3",{text:label + " · " + b.weeks}));
+      var b = blockFor(w), rows = day.rows || boardRows(day.board, w);
+      var label = day.rows ? "Max-hang session" : b.both ? "Board session" : (day.board==="first" ? "Max-hang session" : "Repeater session");
+      kids.push(el("h3",{text:label + " · " + (day.rows ? "trip prep" : b.weeks)}));
       kids.push(boardSvg(rows.map(function(r){return r[0];}), false));
       kids.push(el("p",{class:"small",text:"Warm up first. Open-hand or half-crimp only. Repeater set: 7 s on, 3 s off, six times; 3 min between sets."}));
       kids.push(el("div",{class:"checks"}, rows.map(function(r){ return add(holdText(r)); })));
     }
     if(part==="circuit"){
       var c = CIRCUITS[day.circuit];
-      kids.push(el("h3",{text:c.name + " · " + (push?"3":"2") + " rounds, 60–90 s rest between moves"}));
+      kids.push(el("h3",{text:c.name + " · " + ((push||prep)?"3":"2") + " rounds, 60–90 s rest between moves"}));
       kids.push(el("div",{class:"checks"}, c.items.map(function(t){ return add(t); })));
     }
   });
   var all = keys.length && keys.every(ticked);
   if(all){ kids.push(el("p",{class:"done-banner",role:"status",text:"Session complete."})); }
+  if(prep && left===null){ kids.push(el("p",{class:"small"},[ "Set your trip date on the ", el("a",{href:"#workout",text:"workout page"}), " and the final week switches to a taper." ])); }
   kids.push(el("a",{href:"#workout",class:"small",text:"Full plan, board key and printable sheets"}));
   return el("section",{class:"card pin","aria-label":"Today's workout"}, kids);
 }
@@ -386,6 +421,15 @@ function viewWorkout(){
     else { kids.push(el("h3",{text:"Tuesday: max hangs"})); kids.push(list(b.first)); kids.push(el("h3",{text:"Thursday: repeaters"})); kids.push(list(b.second)); }
     out.push(el("section",{class:"card"+(b===cur && S.start ? " pin":"")}, kids));
   });
+  out.push(el("section",{class:"card"+(S.start && weekInfo().n>8 ? " pin":"")},[ el("h3",{text:"After week 8, until the final week"}), el("h2",{text:"Trip prep"}),
+    el("p",{class:"sub",text:"Two rope sessions a week and one board session. Thursday's board session and Strength B make way for climbing."}),
+    el("ul",{class:"plain"}, PREP.map(function(d){ return el("li",null,[ el("strong",{text:d.k + ": " + d.title + ". "}), (d.rows ? "Max hangs at the load you reached, no increases. " : "") + d.steps.join(" ") + (d.circuit ? " Strength " + d.circuit + ", 3 rounds." : "") ]); })) ]));
+  out.push(el("section",{class:"card"},[ el("h3",{text:"Final 7 days before the trip"}), el("h2",{text:"Taper"}),
+    el("p",{class:"sub",text:"Climb lightly and stop hangboarding, so fingers and skin arrive fresh."}),
+    el("ul",{class:"plain"}, [7,6,5,4,3,2,1].map(function(n){ return el("li",null,[ el("strong",{text:n + (n===1?" day":" days") + " out: " + TAPER[n].title + ". "}), TAPER[n].steps.join(" ") ]); })),
+    el("form",{onsubmit:function(e){ e.preventDefault(); var v = document.getElementById("trip-date").value; S.trip = v || null; save(); render(); }},[
+      el("label",{class:"f",for:"trip-date"},["First day of the trip", el("input",{type:"date",id:"trip-date",value:S.trip||""})]),
+      el("div",{class:"row"},[ el("button",{class:"btn",type:"submit",text:"Save trip date"}), S.trip ? el("span",{class:"small",text:"Taper starts " + fmtDate(addDays(parseIso(S.trip),-7)) + "."}) : el("span",{class:"small",text:"Not set yet."}) ]) ]) ]));
   out.push(el("section",{class:"card"},[ el("h2",{text:"Rules that keep it working"}), plain(PLAN_RULES),
     el("p",{class:"warn",text:"The brake: if you can't finish a max-hang set with clean form, repeat that week before adding load or moving on."}) ]));
   out.push(el("section",{class:"card"},[ el("h2",{text:"Printable sheets"}),
