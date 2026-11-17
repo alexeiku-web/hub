@@ -394,6 +394,11 @@ function viewProject(id){
   if((p.think||[]).length){
     out.push(el("section",{class:"card"},[ el("h3",{text:"Things to think about"}), el("ul",{class:"plain think"}, p.think.map(function(t){ return el("li",null,[ t.text, t.by==="claude" ? el("span",{class:"by",text:"Claude's suggestion"}) : null ]); })) ]));
   }
+  (p.links||[]).forEach(function(g){
+    var ls = [];
+    (g.items||[]).forEach(function(i){ var u = safeUrl(i.url); if(u){ ls.push(el("p",null,[ el("a",{href:u,target:"_blank",rel:"noopener",text:i.title}), i.note ? el("span",{class:"small",text:" · " + i.note}) : null ])); } });
+    if(ls.length){ out.push(el("section",{class:"card"}, [ el("h3",{text:g.title}) ].concat(ls))); }
+  });
   if((p.refs||[]).length){
     var refs = [ el("h3",{text:"Reference"}) ];
     p.refs.forEach(function(r){

@@ -15,6 +15,7 @@ Alexei's personal dashboard, served by GitHub Pages from the default branch root
 ## data.json shape
 - `habits`: `{id,label,days:[0-6, Sunday is 0],period:"day"|"week",hideWhenDone}`
 - `projects`: `{id,name,urgency,status,next:[{id,text}],think:[{by,text}],refs:[{title,body:[...]}|{title,url}],checklist:true?}`
+- `projects[].links` (optional): `[{title,items:[{title,url,note?}]}]` each group shows as its own headed card of links on the project page, above Reference (for example "Keezer setup items" on cider).
 - `todoCats`, `todos`: `{id,cat,text}`
 - `dated`: `{id,date:"YYYY-MM-DD",text}` one-off tasks that appear in the Today area on their date and carry over until ticked. Remove old ones once their date is well past.
 - `other`: `{name,note}`
