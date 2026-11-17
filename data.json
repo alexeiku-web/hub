@@ -16,9 +16,13 @@
       "id": "flute",
       "label": "Practice 30 minutes on the Native American flute",
       "days": [
+        0,
         1,
+        2,
         3,
-        5
+        4,
+        5,
+        6
       ],
       "period": "day"
     }
