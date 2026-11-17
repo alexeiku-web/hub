@@ -16,6 +16,7 @@ Alexei's personal dashboard, served by GitHub Pages from the default branch root
 - `habits`: `{id,label,days:[0-6, Sunday is 0],period:"day"|"week",hideWhenDone}`
 - `projects`: `{id,name,urgency,status,next:[{id,text}],think:[{by,text}],refs:[{title,body:[...]}|{title,url}],checklist:true?}`
 - `todoCats`, `todos`: `{id,cat,text}`
+- `dated`: `{id,date:"YYYY-MM-DD",text}` one-off tasks that appear in the Today area on their date and carry over until ticked. Remove old ones once their date is well past.
 - `other`: `{name,note}`
 - `lists`: `{id,name,items:[{id,title,by?,note?}]}` with ids `books`, `films`, `kidfilms`
 

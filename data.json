@@ -415,5 +415,12 @@
         }
       ]
     }
+  ],
+  "dated": [
+    {
+      "id": "dt-01",
+      "date": "2026-11-19",
+      "text": "Chill one keg in the keezer and start carbonating it for Thanksgiving (12 to 14 psi, about a week)"
+    }
   ]
 }

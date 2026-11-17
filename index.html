@@ -288,6 +288,12 @@ function habits(){
     }
     out.push(check(k, h.label, {after:function(v){ UI.cmeUndo = (v && h.hideWhenDone) ? h.id : false; }}));
   });
+  // Dated tasks from data.json: appear on their date and carry over until ticked.
+  (D.dated||[]).filter(function(d){ return d.date===todayKey || (d.date<todayKey && !ticked("t:"+d.id)); }).forEach(function(d){
+    var node = [d.text];
+    if(d.date<todayKey){ node.push(el("span",{class:"by",text:"carried over"})); }
+    out.push(check("t:"+d.id, node));
+  });
   // One-day tasks, kept on this device. Unfinished ones carry over to the next day.
   S.daily.filter(function(d){ return d.date===todayKey || (d.date<todayKey && !ticked("t:"+d.id)); }).forEach(function(d){
     var node = [d.text];
