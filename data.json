@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-16",
+  "updated": "2026-11-17",
   "workoutGoal": "Eight weeks toward Red Rock Canyon in February",
   "habits": [
     {
@@ -89,13 +89,17 @@
         {
           "title": "Racking into kegs, in order",
           "body": [
+            "Confirm fermentation is done: the same gravity reading three days apart, usually 1.000 or below.",
             "Release any pressure, then take each keg apart: lid, posts and dip tubes.",
-            "Soak or scrub everything in hot PBW, then rinse until the water runs clear.",
-            "Fit new O-rings on the lid, posts and dip tubes, and reassemble.",
+            "Soak or scrub everything in hot PBW, then rinse until the water runs clear. Never bleach.",
+            "Fit new O-rings on the lid, posts and dip tubes with a thin film of keg lube, and reassemble.",
+            "Leak test: pressurize to 30 psi, spray sanitizer on the lid and posts, and watch for bubbles.",
             "Add Star San, seal, shake to coat every surface, then push it out through the liquid post with CO2. The keg is left sanitized and full of gas.",
-            "Run sanitizer through the full length of the new tubing.",
-            "Fill each keg with the tube resting on the bottom to limit splashing. Leave the sediment behind.",
-            "Seal, pressurize, and pull the relief valve 3 or 4 times to purge the headspace. Spray the lid and posts with sanitizer and watch for bubbles.",
+            "Run sanitizer through the siphon and the full length of the new tubing.",
+            "Dissolve 1/4 tsp (about 1.5 g) potassium metabisulfite per 5-gallon keg in 1/4 cup of boiled, cooled water and pour it into the empty keg.",
+            "Fermenter up high, keg on the floor. Give the keg a gentle stream of CO2 for 20 to 30 seconds just before filling.",
+            "Siphon from just above the sediment with the tube resting on the keg bottom so it fills without splashing. Stop an inch or two below the bottom of the gas dip tube.",
+            "Seal, pressurize to 30 psi and vent through the relief valve 5 or 6 times, then hold at 10 to 15 psi for aging.",
             "Clean the 16-gallon fermenter the same day, before the yeast cake dries on."
           ]
         },
