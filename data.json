@@ -56,11 +56,11 @@
         },
         {
           "id": "cider-n6",
-          "text": "Add yeast nutrient to the three 7-gallon fermenters as soon as fermentation starts"
+          "text": "Nutrient dose 1: 3 g Fermaid O per 7-gallon fermenter, now that fermentation has started"
         },
         {
           "id": "cider-n7",
-          "text": "Add the second nutrient dose about a third of the way through fermentation"
+          "text": "Nutrient dose 2: 3 g Fermaid O per fermenter when a third of the gravity points are gone"
         }
       ],
       "think": [
@@ -120,10 +120,14 @@
         {
           "title": "Nutrient plan for the 7-gallon fermenters",
           "body": [
-            "Dose 1: as soon as you see active fermentation (bubbling airlock or foam).",
-            "Dose 2: about a third of the way through, judged by gravity readings.",
-            "Use the dose on the nutrient package for 7 gallons, split across the two additions.",
-            "Keep the fermenters somewhere cool and steady. A steady temperature matters more than a perfect one."
+            "Yeast is Mangrove Jack's M02. Fermaid O only; Go-Ferm is for rehydrating yeast before pitching, so it is not used here.",
+            "Dose 1: 3 g Fermaid O per fermenter at the first signs of active fermentation.",
+            "Dose 2: 3 g Fermaid O per fermenter at one-third sugar depletion.",
+            "Finding the one-third point: take a hydrometer reading at dose 1 and treat it as the starting gravity. Target = 1 + (starting points x 2/3). Examples: 1.050 to 1.033, 1.055 to 1.037, 1.060 to 1.040.",
+            "Check gravity every 2 to 3 days. Use a hydrometer; a refractometer reads wrong once alcohol is present.",
+            "To add: weigh on a gram scale, stir into about 1/2 cup of cider or non-chlorinated water, pour in slowly and swirl gently so it does not foam over.",
+            "Rotten-egg smell: add 3 g more per fermenter, once. Do not add nutrient after the gravity is past halfway.",
+            "Hold the fermenters at 60 to 65 F. Below about 55 F this yeast stalls."
           ]
         },
         {
