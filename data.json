@@ -32,7 +32,7 @@
       "id": "cider",
       "name": "Cider making",
       "urgency": 1,
-      "status": "The 16-gallon batch is finished and its seal is open, so racking it into the corny kegs comes first. Three 7-gallon fermenters of fresh juice were pitched on Nov 15.",
+      "status": "The 16-gallon batch is racked into the corny kegs and sulfited. Next is getting one keg ready to pour for Thanksgiving with the picnic tap, then building the keezer. Three 7-gallon fermenters of fresh juice were pitched on Nov 15 and are fermenting.",
       "next": [
         {
           "id": "cider-n1",
@@ -61,9 +61,37 @@
         {
           "id": "cider-n7",
           "text": "Nutrient dose 2: 3 g Fermaid O per fermenter when a third of the gravity points are gone"
+        },
+        {
+          "id": "cider-n8",
+          "text": "Thanksgiving: serve one keg with the picnic tap (arriving Nov 18)"
+        },
+        {
+          "id": "cider-n9",
+          "text": "Keezer: order the tap"
+        },
+        {
+          "id": "cider-n10",
+          "text": "Keezer: find a tap handle"
+        },
+        {
+          "id": "cider-n11",
+          "text": "Keezer: get the extra tubing"
+        },
+        {
+          "id": "cider-n12",
+          "text": "Keezer: buy wood, fixtures and insulation"
+        },
+        {
+          "id": "cider-n13",
+          "text": "Keezer: build it out"
         }
       ],
       "think": [
+        {
+          "by": "me",
+          "text": "Would like the keezer built out before the end of the year. The picnic tap covers Thanksgiving in the meantime."
+        },
         {
           "by": "me",
           "text": "This yeast tends to throw sulfur at certain temperatures and when nitrogen is short, which is why the nutrient timing matters."
@@ -83,6 +111,14 @@
         {
           "by": "claude",
           "text": "A rotten-egg smell early on is the cue to add nutrient and hold the temperature steady. It is easier to prevent than to remove."
+        },
+        {
+          "by": "claude",
+          "text": "A picnic tap has a short line, so it foams at keg pressure. Vent the keg and pour at about 2 to 4 psi, then put it back to serving pressure afterward."
+        },
+        {
+          "by": "claude",
+          "text": "The half-full keg got a double sulfite dose for its volume. Pour a full keg at Thanksgiving and give the half keg 2 to 3 more weeks."
         }
       ],
       "refs": [
