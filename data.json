@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-17",
+  "updated": "2026-11-18",
   "workoutGoal": "Eight weeks toward Red Rock Canyon in February",
   "habits": [
     {
@@ -25,6 +25,16 @@
         6
       ],
       "period": "day"
+    },
+    {
+      "id": "chinese",
+      "label": "Chat in Chinese with Claude for 20 to 30 minutes",
+      "days": [
+        2,
+        4,
+        6
+      ],
+      "period": "day"
     }
   ],
   "projects": [
@@ -32,19 +42,35 @@
       "id": "cider",
       "name": "Cider making",
       "urgency": 1,
-      "status": "The 16-gallon batch is racked into the corny kegs and sulfited. Next is getting one keg ready to pour for Thanksgiving with the picnic tap, then building the keezer. Three 7-gallon fermenters of fresh juice were pitched on Nov 15 and are fermenting.",
+      "status": "Three 7-gallon fermenters were pitched with M02 on Nov 15. The two plastic ones (17 Brix at the start) are fermenting well, have had their first Fermaid O and show no rotten-egg smell. The glass one (14 Brix at the start) has not started and the cause is not clear yet. The Jonagold cider pressed Oct 3 is in two full kegs and one half keg: good already, better with age. Some gets poured young at Thanksgiving and over the holidays, and the half keg is set aside for spicing. The keezer build comes after.",
       "next": [
         {
-          "id": "cider-n6",
-          "text": "Nutrient dose 1: 3 g Fermaid O per 7-gallon fermenter, now that fermentation has started"
+          "id": "cider-n7",
+          "text": "Nutrient dose 2: 3 g Fermaid O in each plastic fermenter when the gravity reaches about 1.047 (a third of the way down from 1.070)"
         },
         {
-          "id": "cider-n7",
-          "text": "Nutrient dose 2: 3 g Fermaid O per fermenter when a third of the gravity points are gone"
+          "id": "cider-n14",
+          "text": "Check gravity daily on the two plastic fermenters with the hydrometer so the 1.047 point is not missed"
+        },
+        {
+          "id": "cider-n15",
+          "text": "Stalled glass fermenter: move it to the warmest spot, wrap it in a towel and keep it off the floor, swirl gently to rouse the yeast, and smell it"
+        },
+        {
+          "id": "cider-n16",
+          "text": "Stalled glass fermenter: if there is still no activity two days after moving it, repitch with rehydrated yeast and 1 to 2 g Fermaid O"
+        },
+        {
+          "id": "cider-n17",
+          "text": "Glass fermenter, once it is going: dose 1 of 3 g Fermaid O at the start, dose 2 at about 1.038"
         },
         {
           "id": "cider-n8",
           "text": "Thanksgiving: serve one keg with the picnic tap (arriving Nov 18)"
+        },
+        {
+          "id": "cider-n18",
+          "text": "Spice the half keg for the holidays"
         },
         {
           "id": "cider-n9",
@@ -77,6 +103,14 @@
           "text": "This yeast tends to throw sulfur at certain temperatures and when nitrogen is short, which is why the nutrient timing matters."
         },
         {
+          "by": "me",
+          "text": "Aiming for about 65 F, but no spot in the house holds a steady temperature."
+        },
+        {
+          "by": "me",
+          "text": "Not sure whether the glass fermenter is stalled from cold or from contamination."
+        },
+        {
           "by": "claude",
           "text": "The open batch is taking on oxygen. If the tubing run slips, a blanket of CO2 from your tank over the surface buys some time."
         },
@@ -86,7 +120,7 @@
         },
         {
           "by": "claude",
-          "text": "A third of the way through is a third of the sugar gone. If the new juice started near 14 Brix like the last batch, that is around 1.038 on the hydrometer."
+          "text": "A third of the way through is a third of the sugar gone. From 17 Brix (about 1.070) that is about 1.047. From 14 Brix (about 1.057) it is about 1.038."
         },
         {
           "by": "claude",
@@ -99,6 +133,18 @@
         {
           "by": "claude",
           "text": "The half-full keg got a double sulfite dose for its volume. Pour a full keg at Thanksgiving and give the half keg 2 to 3 more weeks."
+        },
+        {
+          "by": "claude",
+          "text": "The glass fermenter is the likeliest to be cold: glass in a cool room runs a couple of degrees under plastic and warms slowly. The other two took three days to start, so it may simply be behind."
+        },
+        {
+          "by": "claude",
+          "text": "Contamination usually shows itself as a film on the surface or a vinegar or nail-polish smell. If it still smells like clean juice, that is good news."
+        },
+        {
+          "by": "claude",
+          "text": "Do not let dose 2 slip past the one-third point; the yeast take up less nutrient the further along they are."
         }
       ],
       "refs": [
@@ -151,8 +197,9 @@
             "Yeast is Mangrove Jack's M02. Fermaid O only; Go-Ferm is for rehydrating yeast before pitching, so it is not used here.",
             "Dose 1: 3 g Fermaid O per fermenter at the first signs of active fermentation.",
             "Dose 2: 3 g Fermaid O per fermenter at one-third sugar depletion.",
+            "This batch: the two plastic fermenters started at 17 Brix, about 1.070, so dose 2 goes in at about 1.047. The glass fermenter started at 14 Brix, about 1.057, so its dose 2 goes in at about 1.038.",
             "Finding the one-third point: take a hydrometer reading at dose 1 and treat it as the starting gravity. Target = 1 + (starting points x 2/3). Examples: 1.050 to 1.033, 1.055 to 1.037, 1.060 to 1.040.",
-            "Check gravity every 2 to 3 days. Use a hydrometer; a refractometer reads wrong once alcohol is present.",
+            "Once the airlock is bubbling steadily, check gravity daily until dose 2 is in; at 65 F the one-third point usually comes 4 to 6 days into active fermentation. Use a hydrometer; a refractometer reads wrong once alcohol is present.",
             "To add: weigh on a gram scale, stir into about 1/2 cup of cider or non-chlorinated water, pour in slowly and swirl gently so it does not foam over.",
             "Rotten-egg smell: add 3 g more per fermenter, once. Do not add nutrient after the gravity is past halfway.",
             "Hold the fermenters at 60 to 65 F. Below about 55 F this yeast stalls."
@@ -303,6 +350,37 @@
       "think": [],
       "refs": [],
       "checklist": true
+    },
+    {
+      "id": "memorial",
+      "name": "Grandmother's memorial",
+      "urgency": 5,
+      "status": "Long-term. A gathering in mid-October 2027, around her birthday, to show her remaining artwork and celebrate her life, with the whole family coming into town. Planning with your granddad, your mother, your uncle and anyone else in the family who wants to help.",
+      "next": [
+        {
+          "id": "mem-n1",
+          "text": "Look into venues with wall space for her artwork"
+        },
+        {
+          "id": "mem-n2",
+          "text": "Talk with your granddad, mother and uncle about the plan and who wants to do what"
+        }
+      ],
+      "think": [
+        {
+          "by": "claude",
+          "text": "Places with gallery walls, such as a community art center or a winery event room, can book close to a year ahead for October. The venue is the first real decision."
+        },
+        {
+          "by": "claude",
+          "text": "A list of the remaining pieces, with sizes, tells you how much wall you need before you tour anywhere."
+        },
+        {
+          "by": "claude",
+          "text": "Settling the weekend early lets out-of-town family book travel."
+        }
+      ],
+      "refs": []
     }
   ],
   "todoCats": [
@@ -348,6 +426,11 @@
       "text": "Take Subaru in for oil change and headlights; find a reliable Subaru mechanic"
     },
     {
+      "id": "td-14",
+      "cat": "Family and personal",
+      "text": "Start looking into venues for grandmother's memorial (October 2027)"
+    },
+    {
       "id": "td-07",
       "cat": "Family and personal",
       "text": "Get days off for Eliot's birthday?"
@@ -366,6 +449,11 @@
       "id": "td-10",
       "cat": "Family and personal",
       "text": "Look into backdoor Roth"
+    },
+    {
+      "id": "td-13",
+      "cat": "Family and personal",
+      "text": "Discuss the financial outlook with Janet"
     },
     {
       "id": "td-11",
