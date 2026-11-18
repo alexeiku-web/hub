@@ -35,26 +35,6 @@
       "status": "The 16-gallon batch is racked into the corny kegs and sulfited. Next is getting one keg ready to pour for Thanksgiving with the picnic tap, then building the keezer. Three 7-gallon fermenters of fresh juice were pitched on Nov 15 and are fermenting.",
       "next": [
         {
-          "id": "cider-n1",
-          "text": "Buy food-grade tubing at the brew shop"
-        },
-        {
-          "id": "cider-n2",
-          "text": "Clean the corny kegs with PBW, rinse, and replace all the O-rings"
-        },
-        {
-          "id": "cider-n3",
-          "text": "Sanitize the kegs with Star San"
-        },
-        {
-          "id": "cider-n4",
-          "text": "Rack the 16-gallon batch straight into the kegs"
-        },
-        {
-          "id": "cider-n5",
-          "text": "Purge the headspace with CO2 and pressurize the kegs for long-term aging"
-        },
-        {
           "id": "cider-n6",
           "text": "Nutrient dose 1: 3 g Fermaid O per 7-gallon fermenter, now that fermentation has started"
         },
@@ -122,6 +102,18 @@
         }
       ],
       "refs": [
+        {
+          "title": "Racking day checklist, for next year",
+          "body": [
+            "Buy food-grade tubing at the brew shop",
+            "Clean the corny kegs with PBW, rinse, and replace all the O-rings",
+            "Sanitize the kegs with Star San",
+            "Rack the 16-gallon batch straight into the kegs",
+            "Purge the headspace with CO2 and pressurize the kegs for long-term aging",
+            "Add 1/4 tsp potassium metabisulfite per 5 gallons at racking; halve it for a half-full keg",
+            "Full detail for each step is in Racking into kegs, in order"
+          ]
+        },
         {
           "title": "Racking into kegs, in order",
           "body": [
