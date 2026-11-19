@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-18",
+  "updated": "2026-11-19",
   "workoutGoal": "Eight weeks toward Red Rock Canyon in February",
   "habits": [
     {
@@ -46,11 +46,11 @@
       "next": [
         {
           "id": "cider-n7",
-          "text": "Nutrient dose 2: 3 g Fermaid O in each plastic fermenter when the gravity reaches about 1.047 (a third of the way down from 1.070)"
+          "text": "Nutrient dose 2: 3 g Fermaid O in each plastic fermenter when the reading reaches about 11.5 Brix (a third of the way down from 17 Brix)"
         },
         {
           "id": "cider-n14",
-          "text": "Check gravity daily on the two plastic fermenters with the hydrometer so the 1.047 point is not missed"
+          "text": "Check Brix daily on the two plastic fermenters with the hydrometer so the 11.5 Brix point is not missed"
         },
         {
           "id": "cider-n15",
@@ -62,7 +62,7 @@
         },
         {
           "id": "cider-n17",
-          "text": "Glass fermenter, once it is going: dose 1 of 3 g Fermaid O at the start, dose 2 at about 1.038"
+          "text": "Glass fermenter, once it is going: dose 1 of 3 g Fermaid O at the start, dose 2 at about 9.5 Brix"
         },
         {
           "id": "cider-n8",
@@ -120,7 +120,7 @@
         },
         {
           "by": "claude",
-          "text": "A third of the way through is a third of the sugar gone. From 17 Brix (about 1.070) that is about 1.047. From 14 Brix (about 1.057) it is about 1.038."
+          "text": "A third of the way through is a third of the sugar gone. From 17 Brix that is about 11.5 Brix. From 14 Brix it is about 9.5 Brix. Those are hydrometer Brix; a refractometer would read about 13 and about 11 at the same points, because alcohol pushes its reading up."
         },
         {
           "by": "claude",
@@ -163,7 +163,7 @@
         {
           "title": "Racking into kegs, in order",
           "body": [
-            "Confirm fermentation is done: the same gravity reading three days apart, usually 1.000 or below.",
+            "Confirm fermentation is done: the same reading three days apart, usually 0 Brix or just below on the hydrometer (a refractometer still shows about 4 to 6 Brix).",
             "Release any pressure, then take each keg apart: lid, posts and dip tubes.",
             "Soak or scrub everything in hot PBW, then rinse until the water runs clear. Never bleach.",
             "Fit new O-rings on the lid, posts and dip tubes with a thin film of keg lube, and reassemble.",
@@ -197,11 +197,11 @@
             "Yeast is Mangrove Jack's M02. Fermaid O only; Go-Ferm is for rehydrating yeast before pitching, so it is not used here.",
             "Dose 1: 3 g Fermaid O per fermenter at the first signs of active fermentation.",
             "Dose 2: 3 g Fermaid O per fermenter at one-third sugar depletion.",
-            "This batch: the two plastic fermenters started at 17 Brix, about 1.070, so dose 2 goes in at about 1.047. The glass fermenter started at 14 Brix, about 1.057, so its dose 2 goes in at about 1.038.",
-            "Finding the one-third point: take a hydrometer reading at dose 1 and treat it as the starting gravity. Target = 1 + (starting points x 2/3). Examples: 1.050 to 1.033, 1.055 to 1.037, 1.060 to 1.040.",
-            "Once the airlock is bubbling steadily, check gravity daily until dose 2 is in; at 65 F the one-third point usually comes 4 to 6 days into active fermentation. Use a hydrometer; a refractometer reads wrong once alcohol is present.",
+            "This batch: the two plastic fermenters started at 17 Brix, so dose 2 goes in at about 11.5 Brix. The glass fermenter started at 14 Brix, so its dose 2 goes in at about 9.5 Brix.",
+            "Finding the one-third point: take a Brix reading at dose 1 and treat it as the starting Brix. Target = starting Brix x 2/3. Examples: 12 to 8, 13.5 to 9, 15 to 10.",
+            "Once the airlock is bubbling steadily, check Brix daily until dose 2 is in; at 65 F the one-third point usually comes 4 to 6 days into active fermentation. Use the hydrometer's Brix scale; a refractometer reads high once alcohol is present (about 13 Brix instead of 11.5, and about 11 instead of 9.5, at the one-third point).",
             "To add: weigh on a gram scale, stir into about 1/2 cup of cider or non-chlorinated water, pour in slowly and swirl gently so it does not foam over.",
-            "Rotten-egg smell: add 3 g more per fermenter, once. Do not add nutrient after the gravity is past halfway.",
+            "Rotten-egg smell: add 3 g more per fermenter, once. Do not add nutrient once the Brix has dropped past halfway.",
             "Hold the fermenters at 60 to 65 F. Below about 55 F this yeast stalls."
           ]
         },
