@@ -42,8 +42,8 @@
       "id": "bavisit",
       "name": "Ba's Visit",
       "urgency": 1,
-      "until": "2026-11-23",
-      "status": "Ba is in Portland from Friday evening, Nov 20, through Monday night, Nov 23. Time with the kids and relaxing together in between the plans below. Tick each one off, then tap clear.",
+      "until": "2026-11-24",
+      "status": "Ba is in Portland from Friday evening, Nov 20, until Tuesday morning, Nov 24. Time with the kids and relaxing together in between the plans below. Tick each one off, then tap clear.",
       "next": [],
       "think": [],
       "refs": [],
@@ -507,7 +507,12 @@
     {
       "id": "ba-06",
       "cat": "p:bavisit",
-      "text": "Mon: low-key day together, family dinner, Ba leaves at night"
+      "text": "Mon: low-key day together, family dinner"
+    },
+    {
+      "id": "ba-07",
+      "cat": "p:bavisit",
+      "text": "Tue morning: Ba leaves"
     }
   ],
   "other": [
