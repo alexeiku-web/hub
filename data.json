@@ -42,7 +42,7 @@
       "id": "cider",
       "name": "Cider making",
       "urgency": 1,
-      "status": "Three 7-gallon fermenters were pitched with M02 on Nov 15. The two plastic ones (17 Brix at the start) are fermenting well, have had their first Fermaid O and show no rotten-egg smell. The glass one (14 Brix at the start) has not started and the cause is not clear yet. The Jonagold cider pressed Oct 3 is in two full kegs and one half keg: good already, better with age. Some gets poured young at Thanksgiving and over the holidays, and the half keg is set aside for spicing. The keezer build comes after.",
+      "status": "Three 7-gallon fermenters were pitched with M02 on Nov 15. The two plastic ones (17 Brix at the start) are fermenting well, have had their first Fermaid O and show no rotten-egg smell. The glass one (14 Brix at the start) was slow to start but is now bubbling steadily through the airlock, with little froth on the surface, which is normal for a cool cider ferment. The Jonagold cider pressed Oct 3 is in two full kegs and one half keg: good already, better with age. Some gets poured young at Thanksgiving and over the holidays, and the half keg is set aside for spicing. The keezer build comes after.",
       "next": [
         {
           "id": "cider-n7",
@@ -50,19 +50,11 @@
         },
         {
           "id": "cider-n14",
-          "text": "Check Brix daily on the two plastic fermenters with the hydrometer so the 11.5 Brix point is not missed"
-        },
-        {
-          "id": "cider-n15",
-          "text": "Stalled glass fermenter: move it to the warmest spot, wrap it in a towel and keep it off the floor, swirl gently to rouse the yeast, and smell it"
-        },
-        {
-          "id": "cider-n16",
-          "text": "Stalled glass fermenter: if there is still no activity two days after moving it, repitch with rehydrated yeast and 1 to 2 g Fermaid O"
+          "text": "Check Brix daily on all three fermenters with the hydrometer so the one-third points (11.5 plastic, 9.5 glass) are not missed"
         },
         {
           "id": "cider-n17",
-          "text": "Glass fermenter, once it is going: dose 1 of 3 g Fermaid O at the start, dose 2 at about 9.5 Brix"
+          "text": "Glass fermenter: dose 1 of 3 g Fermaid O now that it is active, then dose 2 at about 9.5 Brix; take a Brix reading to confirm it is dropping from 14"
         },
         {
           "id": "cider-n8",
@@ -107,10 +99,6 @@
           "text": "Aiming for about 65 F, but no spot in the house holds a steady temperature."
         },
         {
-          "by": "me",
-          "text": "Not sure whether the glass fermenter is stalled from cold or from contamination."
-        },
-        {
           "by": "claude",
           "text": "The open batch is taking on oxygen. If the tubing run slips, a blanket of CO2 from your tank over the surface buys some time."
         },
@@ -136,7 +124,7 @@
         },
         {
           "by": "claude",
-          "text": "The glass fermenter is the likeliest to be cold: glass in a cool room runs a couple of degrees under plastic and warms slowly. The other two took three days to start, so it may simply be behind."
+          "text": "The glass fermenter was simply behind: glass in a cool room runs a couple of degrees under plastic and warms slowly. Bubbling can also come from a warming carboy, so a falling Brix reading is the real confirmation."
         },
         {
           "by": "claude",
