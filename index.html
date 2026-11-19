@@ -308,7 +308,7 @@ function habits(){
     }},[ el("input",{type:"text",id:"day-text",maxlength:"200",placeholder:"Add a task for today","aria-label":"New task for today"}), el("button",{class:"btn",type:"submit",text:"Add"}) ]);
   return el("section",{class:"card","aria-label":"Today"},[ el("h3",{text:"Today"}), out.length ? el("div",{class:"checks"}, out) : null, form ]);
 }
-function projectsSorted(){ return (D.projects||[]).slice().sort(function(a,b){ return (a.urgency||99)-(b.urgency||99); }); }
+function projectsSorted(){ return (D.projects||[]).filter(function(p){ return !p.until || p.until >= todayKey; }).sort(function(a,b){ return (a.urgency||99)-(b.urgency||99); }); }
 function firstOpenNext(p){ var n = (p.next||[]).filter(function(x){ return !ticked("t:"+x.id); })[0]; return n ? n.text : null; }
 function projectList(){
   var rows = projectsSorted().map(function(p,i){

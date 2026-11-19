@@ -39,9 +39,20 @@
   ],
   "projects": [
     {
+      "id": "bavisit",
+      "name": "Ba's Visit",
+      "urgency": 1,
+      "until": "2026-11-23",
+      "status": "Ba is in Portland from Friday evening, Nov 20, through Monday night, Nov 23. Time with the kids and relaxing together in between the plans below. Tick each one off, then tap clear.",
+      "next": [],
+      "think": [],
+      "refs": [],
+      "checklist": true
+    },
+    {
       "id": "cider",
       "name": "Cider making",
-      "urgency": 1,
+      "urgency": 2,
       "status": "Three 7-gallon fermenters were pitched with M02 on Nov 15. The two plastic ones (17 Brix at the start) are fermenting well, have had their first Fermaid O and show no rotten-egg smell. The glass one (14 Brix at the start) was slow to start but is now bubbling steadily through the airlock, with little froth on the surface, which is normal for a cool cider ferment. The Jonagold cider pressed Oct 3 is in two full kegs and one half keg: good already, better with age. Some gets poured young at Thanksgiving and over the holidays, and the half keg is set aside for spicing. The keezer build comes after.",
       "next": [
         {
@@ -217,7 +228,7 @@
     {
       "id": "grandmothers",
       "name": "Nine Hundred Grandmothers script",
-      "urgency": 2,
+      "urgency": 3,
       "status": "Draft one is finished. Collecting edits from your older brother and other editors before it goes to the producer, and working out how to cut it down. Waiting on your older brother's notes.",
       "next": [
         {
@@ -260,7 +271,7 @@
     {
       "id": "crickets",
       "name": "Cricket breeding",
-      "urgency": 3,
+      "urgency": 4,
       "status": "Breeding is under way with your son. A few males died off and some crickets were lost to low humidity. The aim for now is simply to see whether you can breed them.",
       "next": [
         {
@@ -332,7 +343,7 @@
     {
       "id": "tvc",
       "name": "Vancouver Clinic",
-      "urgency": 4,
+      "urgency": 5,
       "status": "Setting up stack day rotations: moving from reading in real time to giving each radiologist a pre-set batch of studies scanned one to three days earlier. Working out the logistics.",
       "next": [],
       "think": [],
@@ -342,7 +353,7 @@
     {
       "id": "memorial",
       "name": "Grandmother's memorial",
-      "urgency": 5,
+      "urgency": 6,
       "status": "Long-term. A gathering in mid-October 2027, around her birthday, to show her remaining artwork and celebrate her life, with the whole family coming into town. Planning with your granddad, your mother, your uncle and anyone else in the family who wants to help.",
       "next": [
         {
@@ -467,6 +478,36 @@
       "id": "tvc-04",
       "cat": "p:tvc",
       "text": "Update DEA and other licenses by December"
+    },
+    {
+      "id": "ba-01",
+      "cat": "p:bavisit",
+      "text": "Fri evening: Ba arrives, easy dinner at home with the kids"
+    },
+    {
+      "id": "ba-02",
+      "cat": "p:bavisit",
+      "text": "Sat, about 12:30: Portland Art Museum, The Stars We Do Not See (see it first, closes at 5)"
+    },
+    {
+      "id": "ba-03",
+      "cat": "p:bavisit",
+      "text": "Sat: Bizarre Bazaar in the same building, free, 12 to 5"
+    },
+    {
+      "id": "ba-04",
+      "cat": "p:bavisit",
+      "text": "Sun 2:00: Station to Station film, 2 tickets (check the ticket for the venue)"
+    },
+    {
+      "id": "ba-05",
+      "cat": "p:bavisit",
+      "text": "Sun 6:00: dinner for two at OK Chicken and Khao Soi, SE Division"
+    },
+    {
+      "id": "ba-06",
+      "cat": "p:bavisit",
+      "text": "Mon: low-key day together, family dinner, Ba leaves at night"
     }
   ],
   "other": [
