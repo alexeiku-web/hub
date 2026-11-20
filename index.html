@@ -286,12 +286,16 @@ function habits(){
       if(UI.cmeUndo===h.id){ out.push(el("p",{class:"small"},[ h.label + ": done. ", el("button",{type:"button",class:"link",text:"Undo",onclick:function(){ setTick(k,false); UI.cmeUndo=false; render(); }}) ])); }
       return;
     }
-    out.push(check(k, h.label, {after:function(v){ UI.cmeUndo = (v && h.hideWhenDone) ? h.id : false; }}));
+    if(S.gone[k]){ return; }
+    var hnode = [h.label];
+    if(on){ hnode.push(" "); hnode.push(el("button",{type:"button",class:"link",text:"clear",onclick:function(e){ e.preventDefault(); S.gone[k]=true; save(); render(); }})); }
+    out.push(check(k, hnode, {after:function(v){ UI.cmeUndo = (v && h.hideWhenDone) ? h.id : false; }}));
   });
   // Dated tasks from data.json: appear on their date and carry over until ticked.
-  (D.dated||[]).filter(function(d){ return d.date===todayKey || (d.date<todayKey && !ticked("t:"+d.id)); }).forEach(function(d){
+  (D.dated||[]).filter(function(d){ return !S.gone[d.id] && (d.date===todayKey || (d.date<todayKey && !ticked("t:"+d.id))); }).forEach(function(d){
     var node = [d.text];
     if(d.date<todayKey){ node.push(el("span",{class:"by",text:"carried over"})); }
+    if(ticked("t:"+d.id)){ node.push(" "); node.push(el("button",{type:"button",class:"link",text:"clear",onclick:function(e){ e.preventDefault(); S.gone[d.id]=true; save(); render(); }})); }
     out.push(check("t:"+d.id, node));
   });
   // One-day tasks, kept on this device. Unfinished ones carry over to the next day.
