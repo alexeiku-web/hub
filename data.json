@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-19",
+  "updated": "2026-11-20",
   "workoutGoal": "Eight weeks toward Red Rock Canyon in February",
   "habits": [
     {
@@ -578,7 +578,13 @@
     {
       "id": "films",
       "name": "Films to watch",
-      "items": []
+      "items": [
+        {
+          "id": "f-bolanegra",
+          "title": "The Black Ball (La bola negra)",
+          "note": "Spanish, 2026. Directed by Javier Ambrossi and Javier Calvo."
+        }
+      ]
     },
     {
       "id": "kidfilms",
