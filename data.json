@@ -1,6 +1,13 @@
 {
-  "updated": "2026-11-20",
+  "updated": "2026-11-21",
   "workoutGoal": "Eight weeks toward Red Rock Canyon in February",
+  "mantras": [
+    {
+      "id": "m-oliver-attention",
+      "text": "Pay attention, be astonished, tell about it",
+      "by": "Mary Oliver"
+    }
+  ],
   "habits": [
     {
       "id": "cme",

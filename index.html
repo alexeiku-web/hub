@@ -47,6 +47,9 @@ h2{font-family:var(--display);font-weight:700;font-size:22px;line-height:1.1;mar
 h3{font-family:var(--display);font-weight:600;font-size:16px;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);margin:0}
 p{margin:0}
 .sub{color:var(--muted);font-size:14px}
+.mantra{margin:0;padding:12px 14px;border-left:4px solid var(--mark);background:var(--surface);border-radius:0 12px 12px 0;display:flex;flex-direction:column;gap:4px}
+.mantra p{font-family:var(--display);font-weight:600;font-size:20px;line-height:1.25;text-wrap:balance}
+.mantra footer{font-size:13px;color:var(--muted)}
 .small{font-size:13px;color:var(--muted)}
 a{color:var(--accent)}
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
@@ -373,8 +376,16 @@ function importBox(){
       render();
     }},[ el("label",{class:"f",for:"import-text"},["Update block", el("textarea",{id:"import-text"})]), el("div",{class:"row"},[ el("button",{class:"btn",type:"submit",text:"Add these items"}) ]) ]) ]);
 }
+function mantraOfDay(){
+  var ms = (D.mantras||[]).filter(function(m){ return m && m.text; });
+  if(!ms.length){ return null; }
+  var dayNo = Math.round(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())/86400000);
+  var m = ms[dayNo % ms.length];
+  return el("blockquote",{class:"mantra"},[ el("p",{text:m.text}), m.by ? el("footer",{text:m.by}) : null ]);
+}
 function viewHome(){
   var out = [ el("header",null,[ el("h1",{text:"ALEXEI KU\u2019S HUB"}), el("p",{class:"sub",text:fmtDate(today) + (D.workoutGoal ? " · " + D.workoutGoal : "")}) ]) ];
+  var mq = mantraOfDay(); if(mq){ out.push(mq); }
   if(UI.saveErr){ out.push(el("p",{class:"warn",text:"This browser is blocking on-device storage, so ticks won't be kept. Private browsing does this."})); }
   if(UI.msg){ out.push(el("p",{class:"warn",role:"status",text:UI.msg})); }
   out.push(workoutTile()); out.push(habits()); out.push(projectList()); out.push(todoSection());
