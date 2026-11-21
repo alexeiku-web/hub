@@ -502,6 +502,11 @@
       "text": "Email Annie with the printing press details"
     },
     {
+      "id": "td-15",
+      "cat": "General",
+      "text": "Email Laura from Tikkasky about Saturday visit"
+    },
+    {
       "id": "tvc-01",
       "cat": "p:tvc",
       "text": "Figure out vacation / stack rotations and send proposal to Jonah"
