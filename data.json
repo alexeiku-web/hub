@@ -404,12 +404,33 @@
     }
   ],
   "todoCats": [
+    "Shopping list",
     "Trip planning",
     "Home and car",
     "Family and personal",
     "General"
   ],
   "todos": [
+    {
+      "id": "sh-01",
+      "cat": "Shopping list",
+      "text": "Dried soba noodles, 8 to 12 oz"
+    },
+    {
+      "id": "sh-02",
+      "cat": "Shopping list",
+      "text": "Scallions, 6"
+    },
+    {
+      "id": "sh-03",
+      "cat": "Shopping list",
+      "text": "White miso paste (need 1/4 cup)"
+    },
+    {
+      "id": "sh-04",
+      "cat": "Shopping list",
+      "text": "Shiitake mushrooms"
+    },
     {
       "id": "td-01",
       "cat": "Trip planning",
