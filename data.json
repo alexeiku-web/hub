@@ -14,6 +14,12 @@
     {
       "id": "m-butterfly-medium",
       "text": "You’ve got to find the medium that best lets you hold the butterfly of the world in your hand for a moment."
+    },
+    {
+      "id": "m-flashes-of-beauty",
+      "text": "The haggard, inconstant flashes of beauty.",
+      "by": "Jep Gambardella, The Great Beauty",
+      "small": true
     }
   ],
   "habits": [

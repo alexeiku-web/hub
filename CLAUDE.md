@@ -13,7 +13,7 @@ Alexei's personal dashboard, served by GitHub Pages from the default branch root
 - Plain text only in `data.json`; the app does not render HTML or markdown.
 
 ## data.json shape
-- `mantras`: `{id,text,by?}` daily mantras or quotes. The front page shows one under the title and moves to the next each day, in order, looping. Add new ones to the end.
+- `mantras`: `{id,text,by?,small?}` daily mantras or quotes (`small:true` shows the text smaller). The front page shows one under the title and moves to the next each day, in order, looping. Add new ones to the end.
 - `habits`: `{id,label,days:[0-6, Sunday is 0],period:"day"|"week",hideWhenDone}`
 - `projects`: `{id,name,urgency,status,next:[{id,text}],think:[{by,text}],refs:[{title,body:[...]}|{title,url}],checklist:true?}`
 - `projects[].until` (optional): `"YYYY-MM-DD"` last day the card shows on the front page; after that date the app hides it. Remove the project and its `p:<id>` todos from `data.json` once it has passed.
