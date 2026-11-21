@@ -652,6 +652,54 @@
       ]
     }
   ],
+  "recipes": [
+    {
+      "id": "soba-noodle-soup",
+      "title": "Soba noodle soup with mushroom dashi",
+      "note": "Serves about 4. Start the dashi the night before, or at least 2 hours ahead.",
+      "sections": [
+        {
+          "title": "Dashi",
+          "items": [
+            "10 cups water",
+            "1 piece kombu, 6 inches (1 oz)",
+            "16 dried shiitake mushrooms (about 3 oz)",
+            "1 packed cup dried bonito flakes (1/2 oz)"
+          ]
+        },
+        {
+          "title": "Soup",
+          "items": [
+            "4 large eggs (optional)",
+            "8 to 12 oz dried soba noodles",
+            "4 tbsp butter",
+            "2/3 cup raw walnuts, chopped",
+            "6 scallions, thinly sliced, whites and greens kept separate",
+            "4 garlic cloves, thinly sliced",
+            "1 tbsp soy sauce",
+            "1 tbsp maple syrup",
+            "1 tsp freshly ground black pepper",
+            "1/4 cup white miso paste"
+          ]
+        },
+        {
+          "title": "Steps",
+          "ordered": true,
+          "items": [
+            "Steep: put the water, kombu and dried shiitakes in a pot, cover, and leave overnight in the fridge (or at least 2 hours at room temperature).",
+            "Dashi: heat until it barely simmers, then take it off the heat. Stir in the bonito flakes and wait about 20 minutes, until they sink.",
+            "Strain through a fine sieve. You should have about 2 quarts. Cut the stems off the mushrooms and discard them, then slice the caps thinly. The kombu and bonito can be saved for a second batch.",
+            "Eggs, if using: lower into boiling water and cook 7 minutes. Drain, crack the shells all over with the back of a spoon, cover with cool water, then peel and halve.",
+            "Soba: boil in a medium pot until tender. Drain, rinse under running water while raking the noodles with your fingers until fully cool, and leave to drain.",
+            "In the same pot, cook the butter, walnuts, scallion whites and garlic over medium heat, stirring often, 3 to 5 minutes, until the butter browns and the nuts and garlic are just golden.",
+            "Stir in the sliced mushrooms to stop the browning. Add the soy sauce, maple syrup and pepper and cook about 1 minute, until absorbed.",
+            "Pour in the dashi, raise the heat to medium-high and bring to a simmer. Dissolve the miso in a little hot dashi in a small bowl, stir it into the pot, and take the pot off the heat.",
+            "Divide the noodles among bowls and ladle the soup over. Top with scallion greens and the eggs, and serve right away."
+          ]
+        }
+      ]
+    }
+  ],
   "dated": [
     {
       "id": "dt-01",

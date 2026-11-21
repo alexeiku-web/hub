@@ -61,6 +61,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .tag{font-size:12px;font-weight:600;letter-spacing:.3px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
 .tag.hot{border-color:var(--mark);color:var(--mark)}
 .back{font-weight:600;text-decoration:none;font-size:15px}
+ol.plain{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:5px}
+.recipe{font-size:17px;line-height:1.5;gap:9px!important}
 ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px}
 ul.plain li::marker{color:var(--accent)}
 .checks{display:flex;flex-direction:column}
@@ -390,7 +392,7 @@ function viewHome(){
   if(UI.saveErr){ out.push(el("p",{class:"warn",text:"This browser is blocking on-device storage, so ticks won't be kept. Private browsing does this."})); }
   if(UI.msg){ out.push(el("p",{class:"warn",role:"status",text:UI.msg})); }
   out.push(workoutTile()); out.push(habits()); out.push(projectList()); out.push(todoSection());
-  out.push(el("nav",{class:"links","aria-label":"More"},[ el("a",{href:"#other",text:"Other projects"}), el("a",{href:"#lists",text:"Books and films"}), el("a",{href:"#workout",text:"Workout plan"}), el("a",{href:"#files",text:"My files"}) ]));
+  out.push(el("nav",{class:"links","aria-label":"More"},[ el("a",{href:"#other",text:"Other projects"}), ((D.recipes||[]).length ? el("a",{href:"#recipes",text:"Recipes"}) : null), el("a",{href:"#lists",text:"Books and films"}), el("a",{href:"#workout",text:"Workout plan"}), el("a",{href:"#files",text:"My files"}) ]));
   out.push(importBox());
   out.push(el("p",{class:"small",text:"Project notes last updated " + (D.updated||"") + ". Ticks and anything you add are stored on this device."}));
   return out;
@@ -470,6 +472,22 @@ function viewWorkout(){
 }
 
 /* ================= Other projects, lists ================= */
+function viewRecipes(){
+  var out = [ backLink(), el("header",null,[ el("h1",{text:"Recipes"}) ]) ];
+  var rows = (D.recipes||[]).map(function(r){ return el("p",null,[ el("a",{href:"#recipe-" + r.id,text:r.title}), r.note ? el("span",{class:"small",text:" · " + r.note}) : null ]); });
+  out.push(el("section",{class:"card"}, rows.length ? rows : [ el("p",{class:"sub",text:"No recipes yet. Tell Claude to add one."}) ]));
+  return out;
+}
+function viewRecipe(id){
+  var r = (D.recipes||[]).filter(function(x){ return x.id===id; })[0];
+  if(!r){ return [ el("a",{class:"back",href:"#recipes",text:"\u2039 Recipes"}), el("p",{text:"That recipe isn't on the hub."}) ]; }
+  var out = [ el("a",{class:"back",href:"#recipes",text:"\u2039 Recipes"}), el("header",null,[ el("h1",{text:r.title}), r.note ? el("p",{class:"sub",text:r.note}) : null ]) ];
+  (r.sections||[]).forEach(function(sec){
+    var list = el(sec.ordered ? "ol" : "ul",{class:"plain recipe"}, (sec.items||[]).map(function(t){ return el("li",{text:t}); }));
+    out.push(el("section",{class:"card"},[ el("h3",{text:sec.title}), list ]));
+  });
+  return out;
+}
 function viewOther(){
   var out = [ backLink(), el("header",null,[ el("h1",{text:"Other projects"}), el("p",{class:"sub",text:"Parked ideas and quieter projects. Tell Claude to bring one back to the hub."}) ]) ];
   out.push(el("section",{class:"card"}, (D.other||[]).map(function(o){ return el("div",{class:"doc"},[ el("strong",{text:o.name}), el("span",{class:"sub",text:o.note||""}) ]); })));
@@ -539,6 +557,8 @@ function currentView(){
   var h = (location.hash||"").replace("#","");
   if(h.indexOf("p-")===0){ return viewProject(h.slice(2)); }
   if(h==="workout"){ return viewWorkout(); }
+  if(h==="recipes"){ return viewRecipes(); }
+  if(h.indexOf("recipe-")===0){ return viewRecipe(h.slice(7)); }
   if(h==="other"){ return viewOther(); }
   if(h==="lists"){ return viewLists(); }
   if(h==="files"){ return viewFiles(); }

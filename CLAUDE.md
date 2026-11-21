@@ -21,6 +21,7 @@ Alexei's personal dashboard, served by GitHub Pages from the default branch root
 - `todoCats`, `todos`: `{id,cat,text}`
 - `dated`: `{id,date:"YYYY-MM-DD",text}` one-off tasks that appear in the Today area on their date and carry over until ticked. Remove old ones once their date is well past.
 - `other`: `{name,note}`
+- `recipes`: `{id,title,note?,sections:[{title,items:[...],ordered?}]}` each opens as its own page from the Recipes link on the front page (`ordered:true` numbers the items, for steps). Write the steps in your own words rather than copying a published recipe's text.
 - `lists`: `{id,name,items:[{id,title,by?,note?}]}` with ids `books`, `films`, `kidfilms`
 
 ## Checking a change
