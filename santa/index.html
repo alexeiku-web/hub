@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Three Families Secret Santa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: one narrow column. Families as three rows, then a six-button picker, then a private reveal panel. */
+:root{
+  --bg:#eef2f4;
+  --surface:#ffffff;
+  --ink:#14262e;
+  --muted:#56686f;
+  --line:#d3dde1;
+  --spruce:#1f5a4c;
+  --berry:#b3263e;
+  --on-accent:#ffffff;
+  --display:"Bricolage Grotesque","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --body:"Figtree","Avenir Next","Segoe UI",system-ui,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1b20;--surface:#17272e;--ink:#e8eff1;--muted:#9bb0b7;--line:#2b4049;
+    --spruce:#6fc3ab;--berry:#f0788b;--on-accent:#0f1b20;color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1b20;--surface:#17272e;--ink:#e8eff1;--muted:#9bb0b7;--line:#2b4049;
+  --spruce:#6fc3ab;--berry:#f0788b;--on-accent:#0f1b20;color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.5}
+main{max-width:560px;margin:0 auto;padding:28px 18px 56px;display:flex;flex-direction:column;gap:26px}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(2rem,9vw,2.8rem);line-height:1.02;margin:0;text-wrap:balance;letter-spacing:-0.02em}
+h1 span{color:var(--berry)}
+h2{font-family:var(--display);font-weight:600;font-size:1.15rem;margin:0 0 10px}
+p{margin:0}
+.lede{color:var(--muted);margin-top:10px;max-width:46ch}
+.families{display:flex;flex-direction:column;gap:8px}
+.fam{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.fam b{font-weight:600}
+.fam small{color:var(--muted);font-size:.92rem}
+.pick{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+button{font:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid var(--berry);outline-offset:2px}
+.name{background:var(--surface);color:var(--ink);border:2px solid var(--spruce);border-radius:12px;padding:16px 10px;font-family:var(--display);font-weight:600;font-size:1.15rem}
+.name[disabled]{opacity:.4;border-color:var(--line);cursor:not-allowed}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px 18px;display:flex;flex-direction:column;gap:16px}
+.panel[hidden]{display:none}
+.primary{background:var(--berry);color:var(--on-accent);border:0;border-radius:12px;padding:15px;font-weight:600;font-size:1.05rem}
+.ghost{background:none;border:0;color:var(--muted);text-decoration:underline;padding:6px;align-self:flex-start}
+.gift{border-left:5px solid var(--spruce);padding:6px 0 6px 14px}
+.gift + .gift{border-left-color:var(--berry)}
+.gift small{display:block;color:var(--muted);font-size:.9rem;text-transform:uppercase;letter-spacing:.06em}
+.gift strong{font-family:var(--display);font-weight:800;font-size:2rem;line-height:1.1}
+.rules{padding-left:1.2em;margin:0;display:flex;flex-direction:column;gap:6px;color:var(--muted)}
+.rules li::marker{color:var(--spruce)}
+.note{color:var(--muted);font-size:.95rem}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Three Families <span>Secret Santa</span></h1>
+    <p class="lede">The names are already drawn. Each adult buys two gifts, one for an adult and one for a kid, and nobody draws their own household.</p>
+  </header>
+
+  <section aria-labelledby="pick-h">
+    <h2 id="pick-h">Adults: tap your own name</h2>
+    <div class="pick" id="pick"></div>
+    <p class="note" id="lock-note" hidden style="margin-top:10px">This device is set to <b id="lock-name"></b>. <button class="ghost" id="unlock" style="display:inline;padding:0">Wrong person?</button></p>
+  </section>
+
+  <section class="panel" id="confirm" hidden>
+    <h2 style="margin:0">You are <span id="c-name"></span>?</h2>
+    <p class="note">Check that nobody can see your screen. Please only open your own names.</p>
+    <button class="primary" id="show">Show my two names</button>
+    <button class="ghost" id="cancel">Go back</button>
+  </section>
+
+  <section class="panel" id="reveal" hidden aria-live="polite">
+    <h2 style="margin:0"><span id="r-name"></span>, you are buying for</h2>
+    <div class="gift"><small>Adult</small><strong id="r-adult"></strong></div>
+    <div class="gift"><small>Kid</small><strong id="r-kid"></strong></div>
+    <button class="primary" id="hide">Hide my names</button>
+  </section>
+
+  <section aria-labelledby="fam-h">
+    <h2 id="fam-h">Who is in the draw</h2>
+    <div class="families" id="families"></div>
+  </section>
+
+  <section aria-labelledby="rules-h">
+    <h2 id="rules-h">How it works</h2>
+    <ul class="rules">
+      <li>Six adults buy. All twelve people get exactly one gift.</li>
+      <li>You never draw yourself, your partner or your own kids.</li>
+      <li>The draw is the same for everyone who opens this page, so come back any time to check your names.</li>
+      <li>Keep it secret until the exchange.</li>
+    </ul>
+  </section>
+</main>
+<script>
+const FAMILIES = [
+  {adults:["Alexei","Morgan"], kids:["Henry","Genevieve"]},
+  {adults:["Stephanie","Julian"], kids:["Dylan","Astrid"]},
+  {adults:["Elliot","Mona"], kids:["Layla","Zane"]}
+];
+const DRAW = {"Alexei": "ByalUwB+A018BMRxOl4hHnND1TthEGooJQqFcWtcOW0lZ9Ynchdnb3oGhXMgXiNtJwaFcyBeI20=", "Morgan": "nXxhtOghbwXmXgCW0gFNT+gQCNWGA0MlvxdDjsgDI2TkEACWlQFPJb1cQZTIAU8lvVxBlMgBTyU=", "Stephanie": "Z9bkUMYclWkc9IVy/Dy3LAu6jT+yPrlJRb3GauY+3QwJpJ1yuzy1SUf2xHDmPLVJR/bEcOY8tUk=", "Julian": "7XyvBES40c6WXs4mfpjzg4ISziZomPOlz0aPJh7Zv6vPAY8kZJjx7s1cjyRkmPHuzVyPJGSY8e4=", "Elliot": "9w2kH0CBB2uML8U9eqElKpto3HopoytL1WaGJWCjQA6ZaNJ2JfdiSYothD9goSdL1y2EP2ChJ0s=", "Mona": "eQT6T668714CJpttlJzNExZ2nS7AnsN+W2/YdY6eqycVZZRt05zPflkk2m+OnM9+WSTab46cz34="};
+const KEY = "three-families-santa-who";
+const $ = id => document.getElementById(id);
+
+function decode(s){
+  const raw = Uint8Array.from(atob(s), c => c.charCodeAt(0));
+  const k = raw.slice(0, 8), body = raw.slice(8);
+  const out = body.map((b, i) => b ^ k[i % 8]);
+  return JSON.parse(new TextDecoder().decode(out));
+}
+function getLock(){ try { return localStorage.getItem(KEY); } catch(e){ return null; } }
+function setLock(v){ try { v ? localStorage.setItem(KEY, v) : localStorage.removeItem(KEY); } catch(e){} }
+
+let chosen = null;
+
+function renderFamilies(){
+  const box = $("families");
+  FAMILIES.forEach((f, i) => {
+    const d = document.createElement("div"); d.className = "fam";
+    const b = document.createElement("b"); b.textContent = "Family " + (i + 1) + ": " + f.adults.join(" and ");
+    const s = document.createElement("small"); s.textContent = "Kids: " + f.kids.join(" and ");
+    d.append(b, s); box.append(d);
+  });
+}
+function renderPick(){
+  const box = $("pick"); box.textContent = "";
+  const lock = getLock();
+  FAMILIES.flatMap(f => f.adults).forEach(n => {
+    const b = document.createElement("button");
+    b.className = "name"; b.type = "button"; b.textContent = n;
+    if (lock && lock !== n) b.disabled = true;
+    b.addEventListener("click", () => choose(n));
+    box.append(b);
+  });
+  $("lock-note").hidden = !lock;
+  if (lock) $("lock-name").textContent = lock;
+}
+function choose(n){
+  chosen = n;
+  $("c-name").textContent = n;
+  $("reveal").hidden = true;
+  $("confirm").hidden = false;
+  $("confirm").scrollIntoView({block:"center"});
+}
+$("show").addEventListener("click", () => {
+  const d = decode(DRAW[chosen]);
+  setLock(chosen); renderPick();
+  $("r-name").textContent = chosen;
+  $("r-adult").textContent = d.a;
+  $("r-kid").textContent = d.k;
+  $("confirm").hidden = true;
+  $("reveal").hidden = false;
+  $("reveal").scrollIntoView({block:"center"});
+});
+$("cancel").addEventListener("click", () => { $("confirm").hidden = true; });
+$("hide").addEventListener("click", () => {
+  $("r-adult").textContent = ""; $("r-kid").textContent = "";
+  $("reveal").hidden = true;
+});
+$("unlock").addEventListener("click", () => { setLock(null); renderPick(); $("reveal").hidden = true; $("confirm").hidden = true; });
+
+renderFamilies();
+renderPick();
+</script>
+</body>
+</html>
