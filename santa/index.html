@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* Layout: one narrow column. Families as three rows, then a six-button picker, then a private reveal panel. */
+/* Layout: one narrow column. Six-button picker, a private reveal panel with wish lists, then the household's own wish-list editor. */
 :root{
   --bg:#eef2f4;
   --surface:#ffffff;
@@ -48,17 +48,26 @@ p{margin:0}
 .fam small{color:var(--muted);font-size:.92rem}
 .pick{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 button{font:inherit;cursor:pointer}
-button:focus-visible{outline:3px solid var(--berry);outline-offset:2px}
+button:focus-visible,textarea:focus-visible{outline:3px solid var(--berry);outline-offset:2px}
 .name{background:var(--surface);color:var(--ink);border:2px solid var(--spruce);border-radius:12px;padding:16px 10px;font-family:var(--display);font-weight:600;font-size:1.15rem}
 .name[disabled]{opacity:.4;border-color:var(--line);cursor:not-allowed}
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px 18px;display:flex;flex-direction:column;gap:16px}
 .panel[hidden]{display:none}
 .primary{background:var(--berry);color:var(--on-accent);border:0;border-radius:12px;padding:15px;font-weight:600;font-size:1.05rem}
+.save{background:var(--spruce);color:var(--on-accent);border:0;border-radius:10px;padding:10px 18px;font-weight:600}
+.save[disabled]{opacity:.5}
 .ghost{background:none;border:0;color:var(--muted);text-decoration:underline;padding:6px;align-self:flex-start}
-.gift{border-left:5px solid var(--spruce);padding:6px 0 6px 14px}
+.gift{border-left:5px solid var(--spruce);padding:6px 0 6px 14px;display:flex;flex-direction:column;gap:6px}
 .gift + .gift{border-left-color:var(--berry)}
 .gift small{display:block;color:var(--muted);font-size:.9rem;text-transform:uppercase;letter-spacing:.06em}
 .gift strong{font-family:var(--display);font-weight:800;font-size:2rem;line-height:1.1}
+.wish{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--bg);border-radius:10px;padding:10px 12px;font-size:.98rem}
+.wish.empty{color:var(--muted)}
+.mine{display:flex;flex-direction:column;gap:8px}
+.mine label{font-weight:600}
+textarea{font:inherit;width:100%;min-height:110px;resize:vertical;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--bg);color:var(--ink)}
+.row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.status{color:var(--muted);font-size:.92rem}
 .rules{padding-left:1.2em;margin:0;display:flex;flex-direction:column;gap:6px;color:var(--muted)}
 .rules li::marker{color:var(--spruce)}
 .note{color:var(--muted);font-size:.95rem}
@@ -80,15 +89,24 @@ button:focus-visible{outline:3px solid var(--berry);outline-offset:2px}
   <section class="panel" id="confirm" hidden>
     <h2 style="margin:0">You are <span id="c-name"></span>?</h2>
     <p class="note">Check that nobody can see your screen. Please only open your own names.</p>
-    <button class="primary" id="show">Show my two names</button>
+    <button class="primary" id="show">Show my names and wish lists</button>
     <button class="ghost" id="cancel">Go back</button>
   </section>
 
-  <section class="panel" id="reveal" hidden aria-live="polite">
+  <section class="panel" id="reveal" hidden>
     <h2 style="margin:0"><span id="r-name"></span>, you are buying for</h2>
-    <div class="gift"><small>Adult</small><strong id="r-adult"></strong></div>
-    <div class="gift"><small>Kid</small><strong id="r-kid"></strong></div>
-    <button class="primary" id="hide">Hide my names</button>
+    <div class="gift"><small>Adult</small><strong id="r-adult"></strong><p class="wish empty" id="r-adult-wish"></p></div>
+    <div class="gift"><small>Kid</small><strong id="r-kid"></strong><p class="wish empty" id="r-kid-wish"></p></div>
+    <p class="note">Wish lists show up here as soon as they are entered, so check back.</p>
+    <button class="primary" id="hide">Hide everything</button>
+  </section>
+
+  <section class="panel" id="mine" hidden>
+    <div>
+      <h2 style="margin:0 0 4px">Your household's wish lists</h2>
+      <p class="note">Wants, sizes, favorites, things to avoid. Only the person who drew each name sees that list. Enter your kids' lists for them.</p>
+    </div>
+    <div id="mine-list" style="display:flex;flex-direction:column;gap:20px"></div>
   </section>
 
   <section aria-labelledby="fam-h">
@@ -102,6 +120,7 @@ button:focus-visible{outline:3px solid var(--berry);outline-offset:2px}
       <li>Six adults buy. All twelve people get exactly one gift.</li>
       <li>You never draw yourself, your partner or your own kids.</li>
       <li>The draw is the same for everyone who opens this page, so come back any time to check your names.</li>
+      <li>Tap your name to add wish lists for yourself and your kids. You can change them any time.</li>
       <li>Keep it secret until the exchange.</li>
     </ul>
   </section>
@@ -112,12 +131,16 @@ const FAMILIES = [
   {adults:["Stephanie","Julian"], kids:["Dylan","Astrid"]},
   {adults:["Eliot","Mona"], kids:["Layla","Zane"]}
 ];
-const DRAW = {"Alexei": "iydPkrqXB2fwBS6wgLclNP9CP/rb+W4CqQtvsNG1PUepZjzmyP5jRfYHb7KatydHqwdvspq3J0c=", "Morgan": "iZiCDdYRzF7yuuMv7DHuFPz062y4M+B+q/OgN/YzgD/w9OMvqzHsfqm4oi32Mex+qbiiLfYx7H4=", "Stephanie": "Yern5DDUIEkayIbGCvQCDA2DiJAS+ABrCsjdxBKcRScTk8WZEPQAaUHKx8QQ9ABpQcrHxBD0AGk=", "Julian": "MhlroDga1cBJOwqCAjr3jV13CoIUOverECNLgmJ7u6UQZEuAGDr14BI5S4AYOvXgEjlLgBg69eA=", "Eliot": "MdlQC0Wy19NK+zEpf5L1kl28KG4skPvzE7JyMWWQkLZfvCZiIMSy8Uz5cCtlkvfzEflwK2WS9/M=", "Mona": "agsgVgiJ6UcRKUF0MqnLCgV5Rzdmq8VnSGACbCirrT4Gak50danJZ0orAHYoqclnSisAdiipyWc="};
+const DRAW = {"Alexei": "wU4HrKaGc9G6bGaOnKZRgrUrd8TH6Bq042Injs2kSfHjD3TY1O8X8+1uJcfHpEnx4x839ZX8SqCVG1fq/M4hqY1/NeTi8gTs/GwrjITtGPP7biX50PQdnYQmYOb3xAO2jyFhzompWLCAczqOiqZRvrYgJZaG3SjzgCJi1MPvUf3hbH3B1OshpPh9QsP3sDirsXdv75XsFab8cyXxiqYo84krad7fpF/x4w9o6/bIEZyQDWLKkdIJ/oIZV8TCyRTs/GxagIbdUZakIGLaz+MFtONiJ46VxAn+uABiwOnzR5mwKWrA9LNYgZc5OpGE2y6s4W4njIamU/HhbieMhqZT8eFuJ4yGplPx4W4njIamU/HhbieMhqZT8eFuJ4yGplPx4W4njIamU/HhbieMhqZT8eFuJ4yGplPx4W4njIamU/HhbieMhqZT8eFuJ4yGplPx4W4njIamU/HhbieMhqZT8eFuJ4yGplPx4W4njIamU/E=", "Morgan": "DbF+qmeyhcd2kx+IXZKnjXjdF8sJkKnnL9pckEeQyaZ03R+IS5KnrGyTRIpFwemjXP8InzWA1Yhg6wjjLOKyqzuDCZdakKnnL9oViF2Sp5ZBhyfYFoGy8mHJDMwQ3aqrf9M92iaPuOUhkVzFENyn/S3qJYgq3fegbN9chkeQ64oiyQ3BI/21t0jXN98P+cSWVf1O61qPp5ohkSWIL9frtXSTUopF8+qAXf8c5zbx4KE65QSFJOXVr2n+GZdakNjrLepc7QLc4LFk1AjPRZ6l5T7zBIUe/OCrQsRK4hbV6KtfhFX6McW4+i/sI9dHkqXnLZFeikeSpectkV6KR5Kl5y2RXopHkqXnLZFeikeSpectkV6KR5Kl5y2RXopHkqXnLZFeikeSpectkV6KR5Kl5y2RXopHkqXnLZFeikeSpectkV6KR5Kl5y2RXopHkqXnLZFeikeSpectkV6KR5Kl5y2RXopHkqXnLZFeikeSpec=", "Stephanie": "s1JH29vSN2/IcCb54fIVKt87KK/5/hdN2HB9+/maUgHBK2X3+/BcDpFoZ/mzqlg9yjou6bOqURyLYT3w9L5OX4cDeub5/hdN2Dll4fvwdgD0Agm5loN0CtVlE6H0kWA/2zYIvObvFUOTcCistfANT+gJZYivt0cH0jwuvvn+F03iYh7ooetGO+YCAYGTgE8jgmAPn6+lClKRD2v7gPBzFt8zKfn38hVa2zU+r5jgWAfBKnTrqZ0BX/BlM4K87wpN7n5ngPmTRBvBOyP59/IVOsUgKZeeulAl4hA3vJW9UQ2cfWy6mu8KTe4POvv78hdPk3Jn+/vyF0+Tcmf7+/IXT5NyZ/v78hdPk3Jn+/vyF0+Tcmf7+/IXT5NyZ/v78hdPk3Jn+/vyF0+Tcmf7+/IXT5NyZ/v78hdPk3Jn+/vyF0+Tcmf7+/IXT5NyZ/v78hdPk3Jn+/vyF0+Tcmf7+/IXT5NyZ/v78hdPk3Jn+/vyF08=", "Julian": "QQYYDg35Nio6JHksN9kUZy5oeSwh2RRBYzw4LFeYWE9jKjgsZpgUEGEkTGJ0rlVmdm9fQzuQUWETQ3VYfop8e3w7OiIt211BYzw4LH7MR0kkfytkQ5NiTypfXjw1l0EdAFclMy/VFggucXYsN9ltcWNMbWJkmFgIbSY6fWGdZ2Q3M0o8XbZbcDdPU146lQAYNjslLFDVFnFjQmFibJcUBmEkLWZqgEJpc2lwfHXKBlgOMChNOo1vTXw7OlMh2W0IAHVsfGSdFAZhJE14f5d6bylhUl9PiVFkLmB6ISLSV2t8OzpTUIQWCmEmOC4t2RYKYSY4Li3ZFgphJjguLdkWCmEmOC4t2RYKYSY4Li3ZFgphJjguLdkWCmEmOC4t2RYKYSY4Li3ZFgphJjguLdkWCmEmOC4t2RYKYSY4Li3ZFgphJjguLdkWCmEmOC4t2RYKYSY4Li3ZFgphJjguLdkWCmEmOC4t2RYKYSY4Li3ZFgo=", "Eliot": "1ZqkdDjiok+uuMVWAsKADrn/3BFRwI5v9/GGThjA5Sq7/9IdXZTHbfm6hh9ZwJhv9+DJBlWw13bm38slDqnYP+zy50dShNVy6LiIVBqJyW3vuoZHepiNNpv/yDtN1uo+svfIJg3J8hmip5lWFMKAIKL0hk4YufltkPbNG0zAjm/38twbapvKJufy3BJL2pE1/rXIDQjW83LouPlYGLmAA7TjyBUazoJthNaSLUqTkXjg9twGXpXNYLnoxjdIo59y98eIVGPA+C67/4ZYGMDReqT5wQ0LiOwlgf/PLX7QmiGireUlBd+AEojnhFQYwoJv9bqEVBjCgm/1uoRUGMKCb/W6hFQYwoJv9bqEVBjCgm/1uoRUGMKCb/W6hFQYwoJv9bqEVBjCgm/1uoRUGMKCb/W6hFQYwoJv9bqEVBjCgm/1uoRUGMKCb/W6hFQYwoJv9bqEVBjCgm/1uoRUGMKCb/W6hFQYwoJv9bqEVBjCgm8=", "Mona": "2V1ICYMCsPqifykruSKSt7YvL2jtIJza+zZqM6Mg9IO1PCYrryKSkbh/cimhbP3VoS4jTcwywL+/FD1hyEPhopVtCTS+IJza+zYjK7kiks+xOjF9wDDfkqsleznxTYbKmmo8UOQ/jdj1fWpm9GySwPkGEyvObd6b+3FoK9duya26EX9gxE+Gk74WGkzuVMOJkwx1NKFfnNqCfwRo+m7R2PV9aljPNOmIqG5/PO96wpyuMmdl8WDziphgdSveLpCh+wcpZ+YgnNr7Ln144GfJybMTIl3maem862UmfrRD4cfkfxVU/iKQ2vl9aCmjIpDa+X1oKaMikNr5fWgpoyKQ2vl9aCmjIpDa+X1oKaMikNr5fWgpoyKQ2vl9aCmjIpDa+X1oKaMikNr5fWgpoyKQ2vl9aCmjIpDa+X1oKaMikNr5fWgpoyKQ2vl9aCmjIpDa+X1oKaMikNr5fWgpoyKQ2vl9aCmjIpDa+X1oKaMikNo="};
+const DB = "https://secret-santa-ku-default-rtdb.firebaseio.com/w/";
 const KEY = "three-families-santa-who";
+const MAXLEN = 2000;
 const $ = id => document.getElementById(id);
+const bytes = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+function b64(u){ let s = ""; for (let i = 0; i < u.length; i++) s += String.fromCharCode(u[i]); return btoa(s); }
 
 function decode(s){
-  const raw = Uint8Array.from(atob(s), c => c.charCodeAt(0));
+  const raw = bytes(s);
   const k = raw.slice(0, 8), body = raw.slice(8);
   const out = body.map((b, i) => b ^ k[i % 8]);
   return JSON.parse(new TextDecoder().decode(out));
@@ -125,7 +148,26 @@ function decode(s){
 function getLock(){ try { return localStorage.getItem(KEY); } catch(e){ return null; } }
 function setLock(v){ try { v ? localStorage.setItem(KEY, v) : localStorage.removeItem(KEY); } catch(e){} }
 
-let chosen = null;
+/* Wish lists live in a small database as scrambled text; each list has its own key. */
+function aes(k){ return crypto.subtle.importKey("raw", bytes(k), "AES-GCM", false, ["encrypt","decrypt"]); }
+async function loadWish(name, k){
+  const r = await fetch(DB + name.toLowerCase() + ".json", {cache:"no-store"});
+  if (!r.ok) throw new Error("load " + r.status);
+  const v = await r.json();
+  if (!v) return "";
+  const raw = bytes(v);
+  const pt = await crypto.subtle.decrypt({name:"AES-GCM", iv:raw.slice(0, 12)}, await aes(k), raw.slice(12));
+  return new TextDecoder().decode(pt);
+}
+async function saveWish(name, k, text){
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const ct = new Uint8Array(await crypto.subtle.encrypt({name:"AES-GCM", iv}, await aes(k), new TextEncoder().encode(text)));
+  const all = new Uint8Array(12 + ct.length); all.set(iv); all.set(ct, 12);
+  const r = await fetch(DB + name.toLowerCase() + ".json", {method:"PUT", headers:{"Content-Type":"application/json"}, body:JSON.stringify(b64(all))});
+  if (!r.ok) throw new Error("save " + r.status);
+}
+
+let chosen = null, session = 0;
 
 function renderFamilies(){
   const box = $("families");
@@ -152,26 +194,72 @@ function renderPick(){
 function choose(n){
   chosen = n;
   $("c-name").textContent = n;
-  $("reveal").hidden = true;
+  hideAll();
   $("confirm").hidden = false;
   $("confirm").scrollIntoView({block:"center"});
 }
+function showTheirWish(el, name, k, mySession){
+  el.className = "wish empty"; el.textContent = "Loading wish list...";
+  loadWish(name, k).then(t => {
+    if (mySession !== session) return;
+    if (t.trim()) { el.className = "wish"; el.textContent = t; }
+    else el.textContent = name + " has not entered a wish list yet. Check back later.";
+  }).catch(() => { if (mySession === session) el.textContent = "Could not load the wish list. Check your connection and try again."; });
+}
+function buildMine(d, mySession){
+  const box = $("mine-list"); box.textContent = "";
+  d.own.forEach(([name, k], i) => {
+    const wrap = document.createElement("div"); wrap.className = "mine";
+    const id = "w-" + name.toLowerCase();
+    const lab = document.createElement("label"); lab.htmlFor = id;
+    lab.textContent = i === 0 ? "Your wish list" : name + "'s wish list";
+    const ta = document.createElement("textarea"); ta.id = id; ta.maxLength = MAXLEN; ta.disabled = true;
+    ta.placeholder = "Loading...";
+    const row = document.createElement("div"); row.className = "row";
+    const btn = document.createElement("button"); btn.type = "button"; btn.className = "save"; btn.id = id + "-save";
+    btn.textContent = "Save"; btn.disabled = true;
+    const st = document.createElement("span"); st.className = "status"; st.setAttribute("aria-live", "polite");
+    row.append(btn, st); wrap.append(lab, ta, row); box.append(wrap);
+    loadWish(name, k).then(t => {
+      if (mySession !== session) return;
+      ta.value = t; ta.disabled = false; btn.disabled = false;
+      ta.placeholder = "Ideas, sizes, favorite things, things to skip";
+    }).catch(() => {
+      if (mySession !== session) return;
+      ta.placeholder = ""; st.textContent = "Could not load this list. Reload the page to try again.";
+    });
+    btn.addEventListener("click", () => {
+      btn.disabled = true; st.textContent = "Saving...";
+      saveWish(name, k, ta.value).then(() => { st.textContent = "Saved."; })
+        .catch(() => { st.textContent = "Not saved. Check your connection and tap Save again."; })
+        .finally(() => { btn.disabled = false; });
+    });
+  });
+}
+function hideAll(){
+  session++;
+  $("r-adult").textContent = ""; $("r-kid").textContent = "";
+  $("r-adult-wish").textContent = ""; $("r-kid-wish").textContent = "";
+  $("mine-list").textContent = "";
+  $("reveal").hidden = true; $("mine").hidden = true; $("confirm").hidden = true;
+}
 $("show").addEventListener("click", () => {
-  const d = decode(DRAW[chosen]);
-  setLock(chosen); renderPick();
-  $("r-name").textContent = chosen;
+  const who = chosen, d = decode(DRAW[who]);
+  hideAll();
+  const s = session;
+  setLock(who); renderPick();
+  $("r-name").textContent = who;
   $("r-adult").textContent = d.a;
   $("r-kid").textContent = d.k;
-  $("confirm").hidden = true;
-  $("reveal").hidden = false;
-  $("reveal").scrollIntoView({block:"center"});
+  showTheirWish($("r-adult-wish"), d.a, d.ka, s);
+  showTheirWish($("r-kid-wish"), d.k, d.kk, s);
+  buildMine(d, s);
+  $("reveal").hidden = false; $("mine").hidden = false;
+  $("reveal").scrollIntoView({block:"start"});
 });
-$("cancel").addEventListener("click", () => { $("confirm").hidden = true; });
-$("hide").addEventListener("click", () => {
-  $("r-adult").textContent = ""; $("r-kid").textContent = "";
-  $("reveal").hidden = true;
-});
-$("unlock").addEventListener("click", () => { setLock(null); renderPick(); $("reveal").hidden = true; $("confirm").hidden = true; });
+$("cancel").addEventListener("click", hideAll);
+$("hide").addEventListener("click", hideAll);
+$("unlock").addEventListener("click", () => { setLock(null); renderPick(); hideAll(); });
 
 renderFamilies();
 renderPick();
