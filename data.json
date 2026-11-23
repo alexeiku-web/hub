@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-21",
+  "updated": "2026-11-23",
   "workoutGoal": "Eight weeks toward Red Rock Canyon in February",
   "mantras": [
     {
@@ -290,81 +290,9 @@
       "refs": []
     },
     {
-      "id": "crickets",
-      "name": "Cricket breeding",
-      "urgency": 4,
-      "status": "Breeding is under way with your son. A few males died off and some crickets were lost to low humidity. The aim for now is simply to see whether you can breed them.",
-      "next": [
-        {
-          "id": "cr-n1",
-          "text": "Buy more adult males"
-        },
-        {
-          "id": "cr-n2",
-          "text": "Raise the humidity in the containers"
-        },
-        {
-          "id": "cr-n3",
-          "text": "Build a clear plexiglass or plastic fighting ring with a central divider"
-        },
-        {
-          "id": "cr-n4",
-          "text": "Keep the males apart for 3 to 4 days, then see whether they will fight"
-        },
-        {
-          "id": "cr-n5",
-          "text": "Later: mount a top-down camera and use computer vision as an unbiased judge"
-        }
-      ],
-      "think": [
-        {
-          "by": "claude",
-          "text": "For humidity, a damp (not wet) laying dish and fresh vegetable slices add moisture without open water. Keep the air holes, since still, wet air grows mold."
-        },
-        {
-          "by": "claude",
-          "text": "A small hygrometer in one tub would tell you whether a change is working."
-        },
-        {
-          "by": "claude",
-          "text": "Keep new store-bought males apart for about a week before mixing them in, in case the batch is sick."
-        }
-      ],
-      "refs": [
-        {
-          "title": "Fight trials, from your breeding guide",
-          "body": [
-            "Give each male at least 3 days alone first. Crickets kept in a crowd act like losers; time alone brings their aggression back.",
-            "Pair males that are close in weight. Let both settle with the divider in, then lift it.",
-            "If they ignore each other, tickle their antennae with a soft brush or grass stem.",
-            "Score each fight 0 to 4: 0 ignored each other, 1 antenna fencing, 2 jaws spread, 3 jaws locked, 4 wrestling.",
-            "The loser is the one that first avoids contact, runs, or stops chirping. Stop the fight the moment one backs off.",
-            "At most one fight per male per day."
-          ]
-        },
-        {
-          "title": "Key numbers",
-          "body": [
-            "Hold the tubs at 82 to 88°F. Past 95°F is dangerous.",
-            "Eggs hatch in about 13 days at 86°F.",
-            "Females lay from about 8 to 10 days old as adults.",
-            "About 12 weeks per generation."
-          ]
-        },
-        {
-          "title": "Cricket Champion Picker (your Claude page)",
-          "url": "https://claude.ai/artifact/Y5xCNZB6TuS6mELX7dPCDo"
-        },
-        {
-          "title": "Illustrated start-up guide (in the earlier chat)",
-          "url": "https://claude.ai/chat/b5c6579c-399a-4f2b-a789-432081b92f19"
-        }
-      ]
-    },
-    {
       "id": "tvc",
       "name": "Vancouver Clinic",
-      "urgency": 5,
+      "urgency": 4,
       "status": "Setting up stack day rotations: moving from reading in real time to giving each radiologist a pre-set batch of studies scanned one to three days earlier. Working out the logistics.",
       "next": [],
       "think": [],
@@ -374,7 +302,7 @@
     {
       "id": "memorial",
       "name": "Grandmother's memorial",
-      "urgency": 6,
+      "urgency": 5,
       "status": "Long-term. A gathering in mid-October 2027, around her birthday, to show her remaining artwork and celebrate her life, with the whole family coming into town. Planning with your granddad, your mother, your uncle and anyone else in the family who wants to help.",
       "next": [
         {
@@ -563,6 +491,82 @@
     }
   ],
   "other": [
+    {
+      "name": "Cricket breeding",
+      "note": "Breeding a champion fighting cricket with your son, from 20 pet-store crickets; a computer-vision fight judge comes later.",
+      "card": {
+        "id": "crickets",
+        "name": "Cricket breeding",
+        "urgency": 4,
+        "status": "Breeding is under way with your son. A few males died off and some crickets were lost to low humidity. The aim for now is simply to see whether you can breed them.",
+        "next": [
+          {
+            "id": "cr-n1",
+            "text": "Buy more adult males"
+          },
+          {
+            "id": "cr-n2",
+            "text": "Raise the humidity in the containers"
+          },
+          {
+            "id": "cr-n3",
+            "text": "Build a clear plexiglass or plastic fighting ring with a central divider"
+          },
+          {
+            "id": "cr-n4",
+            "text": "Keep the males apart for 3 to 4 days, then see whether they will fight"
+          },
+          {
+            "id": "cr-n5",
+            "text": "Later: mount a top-down camera and use computer vision as an unbiased judge"
+          }
+        ],
+        "think": [
+          {
+            "by": "claude",
+            "text": "For humidity, a damp (not wet) laying dish and fresh vegetable slices add moisture without open water. Keep the air holes, since still, wet air grows mold."
+          },
+          {
+            "by": "claude",
+            "text": "A small hygrometer in one tub would tell you whether a change is working."
+          },
+          {
+            "by": "claude",
+            "text": "Keep new store-bought males apart for about a week before mixing them in, in case the batch is sick."
+          }
+        ],
+        "refs": [
+          {
+            "title": "Fight trials, from your breeding guide",
+            "body": [
+              "Give each male at least 3 days alone first. Crickets kept in a crowd act like losers; time alone brings their aggression back.",
+              "Pair males that are close in weight. Let both settle with the divider in, then lift it.",
+              "If they ignore each other, tickle their antennae with a soft brush or grass stem.",
+              "Score each fight 0 to 4: 0 ignored each other, 1 antenna fencing, 2 jaws spread, 3 jaws locked, 4 wrestling.",
+              "The loser is the one that first avoids contact, runs, or stops chirping. Stop the fight the moment one backs off.",
+              "At most one fight per male per day."
+            ]
+          },
+          {
+            "title": "Key numbers",
+            "body": [
+              "Hold the tubs at 82 to 88°F. Past 95°F is dangerous.",
+              "Eggs hatch in about 13 days at 86°F.",
+              "Females lay from about 8 to 10 days old as adults.",
+              "About 12 weeks per generation."
+            ]
+          },
+          {
+            "title": "Cricket Champion Picker (your Claude page)",
+            "url": "https://claude.ai/artifact/Y5xCNZB6TuS6mELX7dPCDo"
+          },
+          {
+            "title": "Illustrated start-up guide (in the earlier chat)",
+            "url": "https://claude.ai/chat/b5c6579c-399a-4f2b-a789-432081b92f19"
+          }
+        ]
+      }
+    },
     {
       "name": "Arcade of the future",
       "note": "Hybrid arcade and STEM learning center with player-moddable games."
