@@ -78,7 +78,6 @@
       "next": [],
       "think": [],
       "refs": [],
-      "checklist": true,
       "links": [
         {
           "title": "Secret Santa pages",
@@ -479,11 +478,6 @@
       "id": "tvc-04",
       "cat": "p:tvc",
       "text": "Update DEA and other licenses by December"
-    },
-    {
-      "id": "santa-01",
-      "cat": "p:santa",
-      "text": "Add gift preferences for the kids"
     },
     {
       "id": "ba-01",
