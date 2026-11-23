@@ -135,7 +135,7 @@
         },
         {
           "id": "cider-n22",
-          "text": "Spiced bottles: bench trial the four tinctures in 100 mL samples (steps under Reference)"
+          "text": "Spiced bottles: bench trial the four tinctures in 50 mL samples (steps under Reference)"
         },
         {
           "id": "cider-n9",
@@ -282,11 +282,11 @@
           "body": [
             "1. Tinctures: allspice, cinnamon, cloves and anise seed, each in vodka. Strain each one through a coffee filter so no bits end up in the bottle (bits make a carbonated bottle gush).",
             "2. Gear: a 1 mL syringe or dropper, a measuring cylinder, five glasses, a notebook.",
-            "3. Pour four 100 mL samples of cold cider from the keg, one per spice.",
-            "4. Add that spice's tincture in steps of 0.05 to 0.1 mL (1 to 2 drops), stir gently and taste after each step. Go smallest with cloves and anise; they take over fast.",
-            "5. Write down the dose where each spice tastes right on its own, in mL per 100 mL.",
-            "6. Pour a fresh 100 mL sample and build the blend: start each spice at half its solo dose, taste, then nudge one spice at a time.",
-            "7. Write down the final blend in mL per 100 mL for each of the four. That is the recipe.",
+            "3. Pour four 50 mL samples of cold cider from the keg, one per spice.",
+            "4. Add that spice's tincture one drop at a time (about 0.05 mL), stir gently and taste after each drop. In 50 mL a single drop counts for a lot. If one drop of cloves or anise is already too strong, thin that tincture with an equal part of vodka and count two thinned drops as one.",
+            "5. Write down the dose where each spice tastes right on its own, in mL per 50 mL.",
+            "6. Pour a fresh 50 mL sample and build the blend: start each spice at half its solo dose, taste, then nudge one spice at a time.",
+            "7. Write down the final blend in mL per 50 mL for each of the four. That is the recipe.",
             "8. Taste the samples cold and with their fizz. Warm, flat cider makes spice read stronger than it will in the bottle."
           ]
         },
@@ -294,8 +294,8 @@
           "title": "Spiced bottles 3: scale the recipe up to the bottle",
           "body": [
             "1. Measure the bottle first: fill one with water to an inch below the stopper and pour it into a measuring jug. Swing-tops of this shape are usually 500 mL or 1 L, so do not assume 750 mL.",
-            "2. Multiply each dose by the bottle volume divided by 100: times 5 for 500 mL, times 7.5 for 750 mL, times 10 for 1 L.",
-            "3. Example: 0.3 mL cinnamon per 100 mL becomes 1.5 mL in a 500 mL bottle, 2.25 mL in a 750 mL bottle, or 3 mL in a 1 L bottle.",
+            "2. Multiply each dose by the bottle volume divided by 50: times 10 for 500 mL, times 15 for 750 mL, times 20 for 1 L.",
+            "3. Example: 0.15 mL cinnamon (3 drops) per 50 mL becomes 1.5 mL in a 500 mL bottle, 2.25 mL in a 750 mL bottle, or 3 mL in a 1 L bottle.",
             "4. Add the four scaled doses together to get one blend dose per bottle.",
             "5. Premix the blend for the whole run in a small jar: each spice's per-bottle amount times the number of bottles, plus one bottle's worth extra. Then every bottle gets the same single measured dose.",
             "6. The half keg holds about 2.5 gallons (about 9.5 L): roughly 18 bottles at 500 mL, 12 at 750 mL or 9 at 1 L.",
