@@ -206,6 +206,10 @@
         {
           "by": "claude",
           "text": "Do not let dose 2 slip past the one-third point; the yeast take up less nutrient the further along they are."
+        },
+        {
+          "by": "claude",
+          "text": "Spice blend: clove tends to come forward after a few days in the bottle, so try the test bottle one drop of clove lighter per 100 mL. The blend is about 3 mL of vodka tincture per 100 mL, which adds roughly one percentage point of alcohol."
         }
       ],
       "refs": [
@@ -264,6 +268,18 @@
             "To add: weigh on a gram scale, stir into about 1/2 cup of cider or non-chlorinated water, pour in slowly and swirl gently so it does not foam over.",
             "Rotten-egg smell: add 3 g more per fermenter, once. Do not add nutrient once the Brix has dropped past halfway.",
             "Hold the fermenters at 60 to 65 F. Below about 55 F this yeast stalls."
+          ]
+        },
+        {
+          "title": "Spiced bottles: current blend (Nov 23)",
+          "body": [
+            "Per 100 mL of cider, in drops from the dropper: cinnamon 30, allspice 22, anise 5, clove 4. That is 61 drops in all.",
+            "Proportions for the premix: 30 parts cinnamon, 22 parts allspice, 5 parts anise, 4 parts clove.",
+            "Per 500 mL bottle (times 5): cinnamon 150, allspice 110, anise 25, clove 20 drops.",
+            "Per 750 mL bottle (times 7.5): cinnamon 225, allspice 165, anise 37 or 38, clove 30 drops.",
+            "Per 1 L bottle (times 10): cinnamon 300, allspice 220, anise 50, clove 40 drops.",
+            "Do not count hundreds of drops. Count how many drops of your dropper make 1 mL, premix the four in the 30 to 22 to 5 to 4 proportions, and dose each bottle by syringe: total drops for the bottle divided by drops per mL.",
+            "At about 20 drops per mL the blend comes to roughly 3 mL per 100 mL: about 15 mL in a 500 mL bottle, 23 mL in 750 mL, 30 mL in 1 L."
           ]
         },
         {
