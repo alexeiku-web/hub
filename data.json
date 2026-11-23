@@ -301,13 +301,17 @@
     },
     {
       "id": "memorial",
-      "name": "Grandmother's memorial",
+      "name": "Grandmother's celebration of life",
       "urgency": 5,
-      "status": "Long-term. A gathering in mid-October 2027, around her birthday, to show her remaining artwork and celebrate her life, with the whole family coming into town. Planning with your granddad, your mother, your uncle and anyone else in the family who wants to help.",
+      "status": "Long-term. A celebration of her life on October 18, 2027, around her birthday, at the Multnomah Arts Center once the reservation is made, to show her remaining artwork with the whole family coming into town. Planning with your granddad, your mother, your uncle and anyone else in the family who wants to help.",
       "next": [
         {
           "id": "mem-n1",
-          "text": "Look into venues with wall space for her artwork"
+          "text": "Make reservation for Multnomah Arts Center, October 18"
+        },
+        {
+          "id": "mem-n3",
+          "text": "Build guest list"
         },
         {
           "id": "mem-n2",
@@ -317,15 +321,11 @@
       "think": [
         {
           "by": "claude",
-          "text": "Places with gallery walls, such as a community art center or a winery event room, can book close to a year ahead for October. The venue is the first real decision."
+          "text": "A list of the remaining pieces, with sizes, tells you how much wall space to ask for when you reserve."
         },
         {
           "by": "claude",
-          "text": "A list of the remaining pieces, with sizes, tells you how much wall you need before you tour anywhere."
-        },
-        {
-          "by": "claude",
-          "text": "Settling the weekend early lets out-of-town family book travel."
+          "text": "Once the reservation is confirmed, telling out-of-town family the date early lets them book travel."
         }
       ],
       "refs": []
@@ -397,7 +397,7 @@
     {
       "id": "td-14",
       "cat": "Family and personal",
-      "text": "Start looking into venues for grandmother's memorial (October 2027)"
+      "text": "Make reservation for Multnomah Arts Center, October 18, for grandmother's celebration of life"
     },
     {
       "id": "td-07",
