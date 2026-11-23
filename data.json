@@ -356,7 +356,29 @@
             }
           ]
         }
-      ]
+      ],
+      "feature": {
+        "title": "Spice blend: drops per 100 mL of cider",
+        "items": [
+          {
+            "value": "30",
+            "label": "Cinnamon"
+          },
+          {
+            "value": "22",
+            "label": "Allspice"
+          },
+          {
+            "value": "5",
+            "label": "Anise"
+          },
+          {
+            "value": "4",
+            "label": "Cloves"
+          }
+        ],
+        "note": "61 drops in all, about 1.4 mL at 44 drops per mL. Premix per bottle: about 7 mL for 500 mL, 10.4 mL for 750 mL, 14 mL for 1 L. Full steps are under Reference, in the Spiced bottles sections."
+      }
     },
     {
       "id": "grandmothers",

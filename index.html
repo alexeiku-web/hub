@@ -56,6 +56,10 @@ a{color:var(--accent)}
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px}
 .card.pin{border-left:5px solid var(--accent)}
+.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(68px,1fr));gap:8px}
+.feat div{text-align:center;border:1px solid var(--line);border-radius:10px;padding:8px 4px}
+.feat b{display:block;font-family:var(--display);font-size:30px;line-height:1.1;color:var(--accent)}
+.feat span{font-size:13px}
 .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .spread{justify-content:space-between}
 .tag{font-size:12px;font-weight:600;letter-spacing:.3px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
@@ -404,6 +408,9 @@ function viewProject(id){
   if(!p){ return [ backLink(), el("p",{text:"That project isn't on the hub."}) ]; }
   var out = [ backLink(), el("header",null,[ el("h1",{text:p.name}) ]) ];
   out.push(el("section",{class:"card pin"},[ el("h3",{text:"Where it stands"}), el("p",{text:p.status}) ]));
+  if(p.feature && (p.feature.items||[]).length){
+    out.push(el("section",{class:"card pin"},[ el("h3",{text:p.feature.title||""}), el("div",{class:"feat"}, p.feature.items.map(function(i){ return el("div",null,[ el("b",{text:String(i.value)}), el("span",{text:i.label||""}) ]); })), p.feature.note ? el("p",{class:"small",text:p.feature.note}) : null ]));
+  }
   if((p.next||[]).length){ out.push(el("section",{class:"card"},[ el("h3",{text:"Next steps"}), el("div",{class:"checks"}, p.next.map(function(n){ return check("t:"+n.id, n.text); })) ])); }
   if(p.checklist){
     var rows = todoChecks("p:"+p.id);
