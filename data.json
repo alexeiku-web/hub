@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-23",
+  "updated": "2026-11-24",
   "workoutGoal": "Eight weeks toward Red Rock Canyon in February",
   "mantras": [
     {
@@ -38,6 +38,11 @@
     {
       "id": "m-world-patterns-culture",
       "text": "The world arranges itself only in the patterns acknowledged by the culture one lives in."
+    },
+    {
+      "id": "m-bradbury-popcorn",
+      "text": "A delightful life is a popcorn machine in your head.",
+      "by": "Ray Bradbury"
     }
   ],
   "habits": [
