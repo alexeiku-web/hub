@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-24",
+  "updated": "2026-11-25",
   "workoutGoal": "Eight weeks toward Red Rock Canyon in February",
   "mantras": [
     {
@@ -48,6 +48,11 @@
       "id": "m-basho-flower",
       "text": "Nothing you can see is not a flower.",
       "by": "Basho"
+    },
+    {
+      "id": "m-wonder-of-wonders",
+      "text": "Life is a wonder of wonders. You must always see it this way, and ask, at every moment: what wonder now is this life revealing to me? Wave after wave, wonder after wonder.",
+      "small": true
     }
   ],
   "habits": [
