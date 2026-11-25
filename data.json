@@ -280,7 +280,8 @@
             "Per 750 mL bottle (times 7.5): cinnamon 225, allspice 165, anise 37 or 38, clove 30 drops.",
             "Per 1 L bottle (times 10): cinnamon 300, allspice 220, anise 50, clove 40 drops.",
             "Do not count hundreds of drops. Your dropper gives 22 drops per 0.5 mL of tincture, so 44 drops per mL. Premix the four in the 30 to 22 to 5 to 4 proportions and dose each bottle by syringe: total drops for the bottle divided by 44.",
-            "At 44 drops per mL the blend comes to about 1.4 mL per 100 mL: about 7 mL in a 500 mL bottle, 10.4 mL in 750 mL, 14 mL in 1 L."
+            "At 44 drops per mL the blend comes to about 1.4 mL per 100 mL: about 7 mL in a 500 mL bottle, 10.4 mL in 750 mL, 14 mL in 1 L.",
+            "With the 0.75 mL syringe (33 drops when full), a 1 L bottle takes: cinnamon 9 syringes plus 3 drops, allspice 6 syringes plus 22 drops, anise 1 syringe plus 17 drops, clove 1 syringe plus 7 drops."
           ]
         },
         {
@@ -359,26 +360,30 @@
         }
       ],
       "feature": {
-        "title": "Spice blend: drops per 100 mL of cider",
+        "title": "Spice blend per 1 L bottle: full 0.75 mL syringes + extra drops",
         "items": [
           {
-            "value": "30",
-            "label": "Cinnamon"
+            "value": "9 + 3",
+            "label": "Cinnamon",
+            "sub": "300 drops"
           },
           {
-            "value": "22",
-            "label": "Allspice"
+            "value": "6 + 22",
+            "label": "Allspice",
+            "sub": "220 drops"
           },
           {
-            "value": "5",
-            "label": "Anise"
+            "value": "1 + 17",
+            "label": "Anise",
+            "sub": "50 drops"
           },
           {
-            "value": "4",
-            "label": "Cloves"
+            "value": "1 + 7",
+            "label": "Cloves",
+            "sub": "40 drops"
           }
         ],
-        "note": "61 drops in all, about 1.4 mL at 44 drops per mL. Premix per bottle: about 7 mL for 500 mL, 10.4 mL for 750 mL, 14 mL for 1 L. Full steps are under Reference, in the Spiced bottles sections."
+        "note": "A full 0.75 mL syringe counts as 33 drops (22 drops per 0.5 mL). That is 610 drops in all, about 14 mL. The recipe per 100 mL of cider is 30 cinnamon, 22 allspice, 5 anise and 4 clove drops. Full steps are under Reference, in the Spiced bottles sections."
       }
     },
     {

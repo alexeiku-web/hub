@@ -60,6 +60,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .feat div{text-align:center;border:1px solid var(--line);border-radius:10px;padding:8px 4px}
 .feat b{display:block;font-family:var(--display);font-size:30px;line-height:1.1;color:var(--accent)}
 .feat span{font-size:13px}
+.feat.two{grid-template-columns:repeat(2,1fr)}
+.feat span.fs{display:block;font-size:12px;color:var(--muted)}
 .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .spread{justify-content:space-between}
 .tag{font-size:12px;font-weight:600;letter-spacing:.3px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
@@ -409,7 +411,7 @@ function viewProject(id){
   var out = [ backLink(), el("header",null,[ el("h1",{text:p.name}) ]) ];
   out.push(el("section",{class:"card pin"},[ el("h3",{text:"Where it stands"}), el("p",{text:p.status}) ]));
   if(p.feature && (p.feature.items||[]).length){
-    out.push(el("section",{class:"card pin"},[ el("h3",{text:p.feature.title||""}), el("div",{class:"feat"}, p.feature.items.map(function(i){ return el("div",null,[ el("b",{text:String(i.value)}), el("span",{text:i.label||""}) ]); })), p.feature.note ? el("p",{class:"small",text:p.feature.note}) : null ]));
+    out.push(el("section",{class:"card pin"},[ el("h3",{text:p.feature.title||""}), el("div",{class:"feat"+(p.feature.items.some(function(i){ return i.sub; })?" two":"")}, p.feature.items.map(function(i){ return el("div",null,[ el("b",{text:String(i.value)}), el("span",{text:i.label||""}), i.sub ? el("span",{class:"fs",text:i.sub}) : null ]); })), p.feature.note ? el("p",{class:"small",text:p.feature.note}) : null ]));
   }
   var nextOpen = (p.next||[]).filter(function(n){ return !S.gone[n.id]; });
   if(nextOpen.length){

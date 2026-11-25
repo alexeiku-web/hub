@@ -17,7 +17,7 @@ Alexei's personal dashboard, served by GitHub Pages from the default branch root
 - `habits`: `{id,label,days:[0-6, Sunday is 0],period:"day"|"week",hideWhenDone}`
 - `projects`: `{id,name,urgency,status,next:[{id,text}],think:[{by,text}],refs:[{title,body:[...]}|{title,url}],checklist:true?}`
 - `projects[].until` (optional): `"YYYY-MM-DD"` last day the card shows on the front page; after that date the app hides it. Remove the project and its `p:<id>` todos from `data.json` once it has passed.
-- `projects[].feature` (optional): `{title,items:[{value,label}],note?}` a highlighted card of big numbers shown right under "Where it stands" on the project page (for example the spice blend on cider).
+- `projects[].feature` (optional): `{title,items:[{value,label,sub?}],note?}` a highlighted card of big numbers (`sub` adds a small second line under the label and switches the card to two columns) shown right under "Where it stands" on the project page (for example the spice blend on cider).
 - `projects[].links` (optional): `[{title,items:[{title,url,note?}]}]` each group shows as its own headed card of links on the project page, above Reference (for example "Keezer setup items" on cider).
 - `todoCats`, `todos`: `{id,cat,text}`
 - `dated`: `{id,date:"YYYY-MM-DD",text}` one-off tasks that appear in the Today area on their date and carry over until ticked. Remove old ones once their date is well past.
