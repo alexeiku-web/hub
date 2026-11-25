@@ -323,7 +323,7 @@ function habits(){
   return el("section",{class:"card","aria-label":"Today"},[ el("h3",{text:"Today"}), out.length ? el("div",{class:"checks"}, out) : null, form ]);
 }
 function projectsSorted(){ return (D.projects||[]).filter(function(p){ return !p.until || p.until >= todayKey; }).sort(function(a,b){ return (a.urgency||99)-(b.urgency||99); }); }
-function firstOpenNext(p){ var n = (p.next||[]).filter(function(x){ return !ticked("t:"+x.id); })[0]; return n ? n.text : null; }
+function firstOpenNext(p){ var n = (p.next||[]).filter(function(x){ return !S.gone[x.id] && !ticked("t:"+x.id); })[0]; return n ? n.text : null; }
 function projectList(){
   var rows = projectsSorted().map(function(p,i){
     var nx = firstOpenNext(p);
@@ -411,7 +411,17 @@ function viewProject(id){
   if(p.feature && (p.feature.items||[]).length){
     out.push(el("section",{class:"card pin"},[ el("h3",{text:p.feature.title||""}), el("div",{class:"feat"}, p.feature.items.map(function(i){ return el("div",null,[ el("b",{text:String(i.value)}), el("span",{text:i.label||""}) ]); })), p.feature.note ? el("p",{class:"small",text:p.feature.note}) : null ]));
   }
-  if((p.next||[]).length){ out.push(el("section",{class:"card"},[ el("h3",{text:"Next steps"}), el("div",{class:"checks"}, p.next.map(function(n){ return check("t:"+n.id, n.text); })) ])); }
+  var nextOpen = (p.next||[]).filter(function(n){ return !S.gone[n.id]; });
+  if(nextOpen.length){
+    var nextDone = nextOpen.filter(function(n){ return ticked("t:"+n.id); });
+    var nextKids = [ el("h3",{text:"Next steps"}), el("div",{class:"checks"}, nextOpen.map(function(n){
+      var node = [n.text];
+      if(ticked("t:"+n.id)){ node.push(" "); node.push(el("button",{type:"button",class:"link",text:"clear",onclick:function(e){ e.preventDefault(); S.gone[n.id]=true; save(); render(); }})); }
+      return check("t:"+n.id, node);
+    })) ];
+    if(nextDone.length>1){ nextKids.push(el("p",{class:"small"},[ el("button",{type:"button",class:"link",text:"Clear all "+nextDone.length+" crossed-out steps",onclick:function(){ nextDone.forEach(function(n){ S.gone[n.id]=true; }); save(); render(); }}) ])); }
+    out.push(el("section",{class:"card"}, nextKids));
+  }
   if(p.checklist){
     var rows = todoChecks("p:"+p.id);
     out.push(el("section",{class:"card"},[ el("h3",{text:"To-dos"}), rows.length ? el("div",{class:"checks"}, rows) : el("p",{class:"sub",text:"No to-dos yet."}), addTodoForm("p:"+p.id,"pt") ]));

@@ -136,20 +136,8 @@
       "id": "cider",
       "name": "Cider making",
       "urgency": 3,
-      "status": "Three 7-gallon fermenters were pitched with M02 on Nov 15. The two plastic ones (17 Brix at the start) are fermenting well, have had their first Fermaid O and show no rotten-egg smell. The glass one (14 Brix at the start) was slow to start but is now bubbling steadily through the airlock, with little froth on the surface, which is normal for a cool cider ferment. The Jonagold cider pressed Oct 3 is in two full kegs and one half keg: good already, better with age. Some gets poured young at Thanksgiving and over the holidays, and the half keg is set aside for spicing. The keezer build comes after.",
+      "status": "As of Nov 25, the three fermenters are between halfway and two-thirds done. They are just past the point for a second nutrient dose, so that is being skipped. The Jonagold cider is aging in one and a half kegs, and a third keg is being poured at Thanksgiving.",
       "next": [
-        {
-          "id": "cider-n7",
-          "text": "Nutrient dose 2: 3 g Fermaid O in each plastic fermenter when the reading reaches about 11.5 Brix (a third of the way down from 17 Brix)"
-        },
-        {
-          "id": "cider-n14",
-          "text": "Check Brix daily on all three fermenters with the hydrometer so the one-third points (11.5 plastic, 9.5 glass) are not missed"
-        },
-        {
-          "id": "cider-n17",
-          "text": "Glass fermenter: dose 1 of 3 g Fermaid O now that it is active, then dose 2 at about 9.5 Brix; take a Brix reading to confirm it is dropping from 14"
-        },
         {
           "id": "cider-n8",
           "text": "Thanksgiving: serve one keg with the picnic tap (arriving Nov 18)"
@@ -210,18 +198,6 @@
         },
         {
           "by": "claude",
-          "text": "The open batch is taking on oxygen. If the tubing run slips, a blanket of CO2 from your tank over the surface buys some time."
-        },
-        {
-          "by": "claude",
-          "text": "16 gallons fills three 5-gallon kegs with about a gallon left over. Have a fourth keg or a smaller vessel ready."
-        },
-        {
-          "by": "claude",
-          "text": "A third of the way through is a third of the sugar gone. From 17 Brix that is about 11.5 Brix. From 14 Brix it is about 9.5 Brix. Those are hydrometer Brix; a refractometer would read about 13 and about 11 at the same points, because alcohol pushes its reading up."
-        },
-        {
-          "by": "claude",
           "text": "A rotten-egg smell early on is the cue to add nutrient and hold the temperature steady. It is easier to prevent than to remove."
         },
         {
@@ -231,18 +207,6 @@
         {
           "by": "claude",
           "text": "The half-full keg got a double sulfite dose for its volume. Pour a full keg at Thanksgiving and give the half keg 2 to 3 more weeks."
-        },
-        {
-          "by": "claude",
-          "text": "The glass fermenter was simply behind: glass in a cool room runs a couple of degrees under plastic and warms slowly. Bubbling can also come from a warming carboy, so a falling Brix reading is the real confirmation."
-        },
-        {
-          "by": "claude",
-          "text": "Contamination usually shows itself as a film on the surface or a vinegar or nail-polish smell. If it still smells like clean juice, that is good news."
-        },
-        {
-          "by": "claude",
-          "text": "Do not let dose 2 slip past the one-third point; the yeast take up less nutrient the further along they are."
         },
         {
           "by": "claude",
